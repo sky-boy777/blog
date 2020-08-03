@@ -1,0 +1,23 @@
+body {
+    margin-bottom: 160px;
+}
+
+/* 公共样式 */
+.buttom {
+        position: fixed;
+        bottom: 0;
+        height: 150px;
+        width: 100%;
+        background-color: black;
+        color: white;
+        padding-top: 20px;
+        text-align: center;
+    }
+.color-white {
+        color: white;
+    }
+.red{ color: red; }
+.page { text-align:center; }
+
+
+

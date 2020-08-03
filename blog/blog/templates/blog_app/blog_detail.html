@@ -1,0 +1,32 @@
+{% extends 'blog_app/base.html' %}      {# 加载父模板 #}
+
+
+{% block header %}  {# 头 #}
+<title>博客详情页</title>
+{% endblock header %}
+
+
+{% block nav %}                         {# 导航栏 #}
+    <li><a href="{% url 'blog_app:index' %}">首页</a></li>
+    <li><a href="{% url 'blog_app:duanzi' %}">段子</a></li>
+    <li><a href="{% url 'blog_app:about' %}">关于我</a></li>
+{% endblock nav %}
+
+{% block search %}                       {# 搜索框 #}
+{% endblock search %}
+
+{% block content %}  {# 内容 #}
+ <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                {% if blog %}
+                <h3>{{ blog.btitle }}</h3>
+                <p><i>{{ blog.btime }}</i> &nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span> {{ blog.bbrowse }}</p>
+                <p>{{ blog.btext | safe }}</p>
+                {% else %}
+                 <h3>{{ msg }}</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

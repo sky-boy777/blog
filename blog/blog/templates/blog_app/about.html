@@ -1,0 +1,26 @@
+{% extends 'blog_app/base.html' %}      {# 加载父模板 #}
+
+
+{% block header %}  {# 头 #}
+<title>博主</title>
+{% endblock header %}
+
+
+{% block nav %}                         {# 导航栏 #}
+    <li><a href="{% url 'blog_app:index' %}">首页</a></li>
+    <li><a href="{% url 'blog_app:duanzi' %}">段子</a></li>
+    <li><a href="javascript:void(0)">关于我</a></li>
+{% endblock nav %}
+
+{% block search %}                       {# 搜索框 #}
+{% endblock search %}
+
+{% block content %}                     {# 内容 #}
+ <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h3>这里没有东西</h3>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
