@@ -7,8 +7,8 @@ class Duanzi(models.Model):
     id = models.AutoField(primary_key=True)
     # 内容
     text = MDTextField(blank=True, null=True, verbose_name='段子')
-    # 点赞数
-    favour = models.IntegerField(default=0, null=True, verbose_name='获赞数')
+    # 点赞数,只能是正整数或0
+    favour = models.PositiveIntegerField(default=0, verbose_name='获赞数')
 
     class Meta:
         managed = False
@@ -25,14 +25,17 @@ class Blog(models.Model):
     # 发布时间
     btime = models.DateTimeField(auto_now_add=True, verbose_name='发布时间')
     # 点赞数
-    bfavour = models.IntegerField(default=0, blank=True, null=True, verbose_name='获赞数')
+    bfavour = models.PositiveIntegerField(default=0, verbose_name='获赞数')
     # 浏览数
-    bbrowse = models.IntegerField(default=0, blank=True, null=True, verbose_name='浏览数')
+    bbrowse = models.PositiveIntegerField(default=0, verbose_name='浏览数')
     # 评论数
     bcomment = models.IntegerField(default=0, blank=True, null=True, verbose_name='评论数')
 
     class Meta:
         db_table = 'blog'
+
+
+
 
 
 

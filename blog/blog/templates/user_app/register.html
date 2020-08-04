@@ -1,0 +1,53 @@
+{% extends 'blog_app/base.html' %}      {# 加载父模板 #}
+
+
+{% block header %}  {# 头 #}
+<style>
+    .title {
+        text-align: center;
+        color:white;
+        background-color:black;
+        border-radius: 5px;
+    }
+</style>
+<title>注册</title>
+{% endblock header %}
+
+
+{% block nav %}                         {# 导航栏 #}
+    <li><a href="{% url 'blog_app:index' %}">首页</a></li>
+    <li><a href="{% url 'blog_app:duanzi' %}">段子</a></li>
+    <li><a href="{% url 'blog_app:about' %}">关于我</a></li>
+{% endblock nav %}
+
+{% block search %}                       {# 搜索框 #}
+{% endblock search %}
+
+{% block content %}                     {# 内容:登录表单 #}
+<div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <h1 class="title">BYC</h1>
+                  <div class="form-group">
+                    <label>用户名</label>
+                     <input type="text" class="form-control" placeholder="用户名" name="username">
+                      <div class="red">{{ form.username.errors }}{{ msg }}</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="密码" name="password">
+                    <div class="red">{{ form.password.errors }}</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">邮箱:接收激活账号的邮件</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱" name="email">
+                    <div class="red">{{ form.email.errors }}</div>
+                  </div>
+                  <button type="submit" class="btn btn-default">注册</button>
+                </form>
+              </div>
+        </div>
+    </div>
+{% endblock content %}

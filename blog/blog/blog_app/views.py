@@ -128,9 +128,9 @@ def blog_detail(request):
         blog = Blog.objects.get(bid=bid)  # 根据文字id查询一条数据
         blog.btext = markdown.markdown(blog.btext)  # 富文本转换成HTML
 
-        # # 浏览量加一
-        # blog.bbrowse += 1
-        # blog.save()
+        # 浏览量加一
+        blog.bbrowse += 1
+        blog.save()
     except:
         msg = '找不到资源了。。。'
         return render(request, 'blog_app/blog_detail.html', locals())

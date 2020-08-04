@@ -28,6 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# 账号激活链接主机名，将来换成域名
+HOST_URL = 'http://127.0.0.1:8000'
+
 
 # Application definition
 
@@ -133,6 +136,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+# 发送邮件
+EMAIL_FROM = 'BYC账号激活<1251779123@qq.com>'   # 收件人看到的发送者名称，没有默认是EMAIL_HOST_USER
+# 必须
+EMAIL_HOST = 'smtp.qq.com'  # smtp服务的邮箱服务器， 如果是 163 改成 smtp.163.com
+EMAIL_HOST_USER = '1251779123@qq.com'  # 发送邮件的邮箱
+EMAIL_HOST_PASSWORD = 'fxnracpskvdfhhab'  # 开启SMTP后的客户端授权码
+
+
 # 富文本图片上传的位置
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/media/'
@@ -140,7 +151,7 @@ MEDIA_URL = '/media/'
 # MDEDITOR_CONFIGS = {
 #     'default': {
 #         'width': '90% ',  # 宽度
-#         'heigth': 500,  # 高度
+#         'heigth': '100% ',  # 高度
 #         'toolbar': ["undo", "redo", "|",
 #                     "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
 #                     "h1", "h2", "h3", "h5", "h6", "|",

@@ -30,7 +30,14 @@
                     {% block nav %}
                     <li><a href="{% url 'blog_app:index' %}">首页</a></li>
                     <li><a href="{% url 'blog_app:duanzi' %}">段子</a></li>
-                    <li><a href="{% url 'blog_app:about' %}">博主</a></li>
+                    <li><a href="{% url 'blog_app:about' %}">关于我</a></li>
+                    <li><a></a></li>
+                    {% if request.user.is_authenticated %}    {# 是否登录 #}
+                    <li><a href="#">{{ request.user.username }}</a></li>
+                    <li><a href="{% url 'user_app:logout' %}">退出登录</a></li>
+                    {% else %}
+                    <li><a href="{% url 'user_app:login' %}">去登录</a></li>
+                    {% endif %}
                     {% endblock nav %}
                 </ul>
                 <!--搜所框-->
