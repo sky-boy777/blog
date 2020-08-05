@@ -16,8 +16,9 @@
         <div class="row">
             <div class="col-md-10">
                 {% if blog %}
-                <h3>{{ blog.btitle }}</h3>
+                <h1>{{ blog.btitle }}</h1>
                 <p><i>{{ blog.btime }}</i> &nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span> {{ blog.bbrowse }}</p>
+                <hr />
                 <p>{{ blog.btext | safe }}</p>
                 {% else %}
                  <h3>{{ msg }}</h3>

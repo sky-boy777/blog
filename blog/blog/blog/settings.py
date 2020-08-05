@@ -143,6 +143,25 @@ EMAIL_HOST = 'smtp.qq.com'  # smtp服务的邮箱服务器， 如果是 163 改�
 EMAIL_HOST_USER = '1251779123@qq.com'  # 发送邮件的邮箱
 EMAIL_HOST_PASSWORD = 'fxnracpskvdfhhab'  # 开启SMTP后的客户端授权码
 
+# 缓存，不配置默认使用本地内存缓存
+# 数据库缓存配置，然后python manage.py createcachetable生成缓存表
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        # 缓存表的名字
+        'LOCATION': 'blog_cache_table'
+    }
+}
+
+# redis做缓存
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': 'redis://127.0.0.1:6379/1',  # redis地址（无密码），后面表示使用第二个数据库
+#         # 'LOCATION': 'redis://密码@192.168.1.101:6379/2',  # redis地址（有密码），后面表示使用第二个数据库
+#     }
+# }
+
 
 # 富文本图片上传的位置
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')

@@ -7,7 +7,6 @@ from itsdangerous import TimedJSONWebSignatureSerializer  # 生成token
 from itsdangerous import SignatureExpired  # token超时发生的异常
 from django.contrib.auth import authenticate, logout, login
 from django.conf import settings  # 从settings.py里导入
-import time
 
 
 class RegisterView(View):
@@ -56,26 +55,27 @@ class RegisterView(View):
 def active(request):
     '''激活账号'''
     try:
-        serializer = TimedJSONWebSignatureSerializer('SECRET_KEY', 86400)
-        token = request.GET.get('token')
-        info = serializer.loads(token)  # 解密，加密的时候是字典，解密的时候还是字典
-        uid = info.get('id')
-    except SignatureExpired as e:  # token过期的错误SignatureExpired
-        user = User.objects.get(pk=uid)  # 删除账号，让用户重新注册
-        user.delete()
-        return HttpResponse('激活链接过期，请重新注册')
-    try:
-        user = User.objects.get(pk=uid)  # 在数据库里查找用户，找不到则表示用户不存在
+        try:
+            serializer = TimedJSONWebSignatureSerializer('SECRET_KEY')
+            token = request.GET.get('token')
+            info = serializer.loads(token)  # 解密，加密的时候是字典，解密的时候还是字典
+            uid = info.get('id')
+        except SignatureExpired as e:  # token过期的错误SignatureExpired
+            user = User.objects.get(pk=uid)  # 删除账号，让用户重新注册
+            user.delete()
+            return HttpResponse('激活链接过期，请重新注册')
+        try:
+            user = User.objects.get(pk=uid)  # 在数据库里查找用户，找不到则表示用户不存在
+        except:
+            return HttpResponse('<h1>用户不存在,请重新<a href="' + settings.HOST_URL + '/user/register">注册</a></h1>')
+
+        # 将用户标记为激活
+        user.is_active = 1
+        user.save()
+        return render(request, 'user_app/active.html')
     except:
-        return HttpResponse('用户不存在，请重新注册')
+        return redirect(reverse('blog_app:index'))
 
-    # 将用户标记为激活
-    user.is_active = 1
-    user.save()
-    print(serializer.loads(token))
-
-    # return render(request, 'user_app/active.html')
-    return redirect(reverse('blog_app:index'))
 
 
 class LoginView(View):

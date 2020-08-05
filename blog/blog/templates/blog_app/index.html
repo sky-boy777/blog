@@ -7,14 +7,13 @@
 
 
 
-
-
 {% block content %}                     {# 内容 #}
  <div class="container">
-     {% for blog in blogs %}
+     {% for blog in blogs %}            {# 一条博客一行 #}
         <div class="row">
             <div class="col-md-10">
-                <a href="/blog_detail/?key={{ key }}&bid={{ blog.bid }}"><h3>{{ blog.btitle }}</h3></a>
+                <a href="/blog_detail/?key={{ key }}&bid={{ blog.bid }}"><span class="h2">{{ blog.btitle }}</span></a>
+                <p></p>
                 <p><span class="glyphicon glyphicon-thumbs-up red" id="favour"></span> {{ blog.bfavour }} &nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open" id="browse"></span> {{ blog.bbrowse }} &nbsp;&nbsp;<i>{{ blog.btime }}</i></p>
                 <hr >
             </div>
