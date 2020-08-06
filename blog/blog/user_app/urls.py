@@ -9,4 +9,5 @@ urlpatterns = [
     path('register/', views.RegisterView.as_view(), name='register'),  # 注册
     path('active/', views.active, name='active'),  # 激活账号
     path('logout/', views.userlogout, name='logout'),  # 退出登录
+    path('change_password/', views.change_password, name='change_password'),  # 修改密码
 ]

@@ -1,20 +1,20 @@
 {% extends 'blog_app/base.html' %}      {# 加载父模板 #}
 
 {% block header %}  {# 头 #}
-<link rel="stylesheet" type="text/css" href="../../static/css/index.css">
-<title>博客首页</title>
+<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+<title>博客</title>
 {% endblock header %}
 
 
 
 {% block content %}                     {# 内容 #}
  <div class="container">
-     {% for blog in blogs %}            {# 一条博客一行 #}
+     {% for blog in pager.object_list %}            {# 一条博客一行 #}
         <div class="row">
             <div class="col-md-10">
-                <a href="/blog_detail/?key={{ key }}&bid={{ blog.bid }}"><span class="h2">{{ blog.btitle }}</span></a>
+                <a href="/blog_detail/?key={{ key }}&bid={{ blog.bid }}"><span class="h3">{{ blog.btitle }}</span></a>
                 <p></p>
-                <p><span class="glyphicon glyphicon-thumbs-up red" id="favour"></span> {{ blog.bfavour }} &nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open" id="browse"></span> {{ blog.bbrowse }} &nbsp;&nbsp;<i>{{ blog.btime }}</i></p>
+                <p><span class="glyphicon glyphicon-eye-open" id="browse"></span> {{ blog.bbrowse }} &nbsp;&nbsp;<i>{{ blog.btime }}</i></p>
                 <hr >
             </div>
         </div>
@@ -26,8 +26,9 @@
       <nav aria-label="Page navigation">
         <ul class="pagination">
            {% if pager.has_previous %}     {# 上一页 #}
+            <li><a href="/?page=1&keyword={{ keyword }}">第1页</a></li>
           <li>
-            <a href="/?page={{ pager.previous_page_number  }}&keyword={{ keyword }}" aria-label="Previous">
+            <a href="/?page={{ pager.previous_page_number }}&keyword={{ keyword }}" aria-label="Previous">
               <span aria-hidden="true">上一页</span>
             </a>
           </li>

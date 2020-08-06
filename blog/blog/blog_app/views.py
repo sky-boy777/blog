@@ -7,6 +7,7 @@ from django.core.paginator import Paginator  # 分页
 import markdown
 from django.views.decorators.cache import cache_page  # 页面缓存
 from django.utils.decorators import method_decorator  # 将函数装饰器转换为方法装饰器
+import random
 
 
 class IndexView(View):
@@ -18,15 +19,16 @@ class IndexView(View):
 
         # 1、尝试获取关键字，然后决定查询条件
         keyword = request.GET.get('keyword')  # keyword是字符串类型：None <class 'str'>
-        if keyword != '' and keyword is not None:
+        # print(keyword, type(keyword))
+        if keyword != 'None' and keyword is not None:
             # 查询数据库
-            blogs = Blog.objects.filter(btitle__icontains=keyword)
+            blogs = Blog.objects.filter(btitle__icontains=keyword).order_by('-btime')
         else:
             # 查询数据库
-            blogs = Blog.objects.all()
+            blogs = Blog.objects.all().order_by('-btime')  # 按时间降序
 
         # 2、产生分页器
-        paginator = Paginator(blogs, 10)  # 每页显示十条
+        paginator = Paginator(blogs, 7)  # 每页显示十条
         # 获取页码
         page = request.GET.get('page', 1)
         pager = paginator.get_page(page)  # 请求的页
@@ -40,7 +42,7 @@ class IndexView(View):
         keyword = request.POST.get('keyword')
         if keyword != '' and keyword is not None:
             # 查询数据库
-            blogs = Blog.objects.filter(btitle__icontains=keyword)
+            blogs = Blog.objects.filter(btitle__icontains=keyword).order_by('-btime')
         else:
             # blogs = Blog.objects.all()
             return redirect(reverse('blog_app:index'))
@@ -58,7 +60,7 @@ class DuanziView(View):
     def get(self, request):
         # 1、尝试获取关键字，然后决定查询条件
         keyword = request.GET.get('keyword')  # keyword是字符串类型：None <class 'str'>
-        if keyword != '' and keyword is not None:
+        if keyword != 'None' and keyword is not None:
             # 查询数据库
             data = Duanzi.objects.filter(text__icontains=keyword)
         else:
@@ -72,7 +74,7 @@ class DuanziView(View):
             duanzi.append(i)
 
         # 2、产生分页器
-        paginator = Paginator(duanzi, 10)  # 每页显示十条
+        paginator = Paginator(duanzi, 5)  # 每页显示十条
         # 获取页码
         page = request.GET.get('page', 1)
         pager = paginator.get_page(page)  # 请求的页
@@ -84,11 +86,11 @@ class DuanziView(View):
     def post(self, request):
         # 1、获取过滤条件，然后查询数据库
         keyword = request.POST.get('keyword')
+        print(keyword, type(keyword))
         if keyword != '' and keyword is not None:
             # 查询数据库
             data = Duanzi.objects.filter(text__icontains=keyword)
         else:
-            # data = Duanzi.objects.all()
             # keyword为空则重定向到duanz.html
             return redirect(reverse('blog_app:duanzi'))
 

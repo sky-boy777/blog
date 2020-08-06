@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse
 from django.views import View
 from django.contrib.auth.models import User
-from .myForm import RegisterForm, LoginForm
+from .myForm import RegisterForm, LoginForm, PasswordForm
 from django.core.mail import send_mail  # 发送邮件
 from itsdangerous import TimedJSONWebSignatureSerializer  # 生成token
 from itsdangerous import SignatureExpired  # token超时发生的异常
 from django.contrib.auth import authenticate, logout, login
+from django.contrib.auth.decorators import login_required  # 路由保护
 from django.conf import settings  # 从settings.py里导入
 
 
@@ -102,6 +103,32 @@ class LoginView(View):
             return render(request, 'user_app/login.html', {'msg': '用户名或密码不正确'})
         else:
             return render(request, 'user_app/login.html', {'form': form})
+
+
+# 路由保护
+@login_required(login_url='user_app:login')
+def change_password(request):
+    '''修改密码'''
+    if request.method == 'POST':
+        form = PasswordForm(request.POST)  # 表单验证
+        if form.is_valid():
+            # 用户验证，如果当前登录的用户名和表单输入的旧密码密码正确，则返回user对象，否则返回None
+            user = authenticate(request, username=request.user.username, password=request.POST.get('old_password'))
+            if user:
+                try:
+                    user = User.objects.get(username=request.user.username)  # 获取得用户实例对象
+                    user.set_password(request.POST.get('new_password'))  # 修改密码
+                    user.save()  # 保存
+                    return render(request, 'user_app/change_password.html', {'ok': '修改成功,刷新页面重新登录'})
+                except:
+                    return render(request, 'user_app/change_password.html', {'error': '出错了'})
+            else:
+                return render(request, 'user_app/change_password.html', {'msg': '密码不正确'})
+        else:
+            return render(request, 'user_app/change_password.html', {'form': form})
+    # GET请求
+    return render(request, 'user_app/change_password.html')
+
 
 
 def userlogout(request):

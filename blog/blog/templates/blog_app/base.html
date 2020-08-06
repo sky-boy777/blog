@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<!--加载静态文件css、js-->
-{% load staticfiles %}
+{% load static %}  <!--加载静态文件css、js-->
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-     <link rel="stylesheet" href="../../static/css/normalize.css">
-    <link rel="stylesheet" href="../../static/css/base.css">
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/base.css">
     {% block header %}{% endblock header %}
 </head>
 
@@ -23,20 +22,22 @@
 
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand"><img src="../../static/images/logo.JPG" alt="logo"></a>
+                <a class="navbar-brand"><img src="/static/images/logo.JPG" alt="logo"></a>
             </div>
             <div class="collapse navbar-collapse" id="nav-div">
                 <ul class="nav navbar-nav">
                     {% block nav %}
-                    <li><a href="{% url 'blog_app:index' %}">首页</a></li>
+                    <li><a href="{% url 'blog_app:index' %}">博客</a></li>
                     <li><a href="{% url 'blog_app:duanzi' %}">段子</a></li>
                     <li><a href="{% url 'blog_app:about' %}">关于我</a></li>
                     <li><a></a></li>
-                    {% if request.user.is_authenticated %}    {# 是否登录 #}
+                    {% if request.user.is_authenticated %} {# 是否登录 #}
                     <li><a href="#">{{ request.user.username }}</a></li>
                     <li><a href="{% url 'user_app:logout' %}">退出登录</a></li>
+                    <li><a href="{% url 'user_app:change_password' %}">修改密码</a></li>
                     {% else %}
                     <li><a href="{% url 'user_app:login' %}">去登录</a></li>
+                    <li><a href="{% url 'user_app:register' %}">注册</a></li>
                     {% endif %}
                     {% endblock nav %}
                 </ul>
@@ -47,8 +48,9 @@
                     <div class="form-group">
                         <input type="text" name="keyword" class="form-control" placeholder="搜">
                     </div>
-                    <button type="submit" class="btn btn-default"><span
-                            class="glyphicon glyphicon-search"></span></button>
+                    <button type="submit" class="btn btn-default" id="search_btn">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
                 </form>
                 {% endblock search %}
             </div>
@@ -75,19 +77,19 @@
     </div>
     <!--底部结束-->
 
-    <script src="../../static/jquery/jquery-1.12.4.js"></script>
+    <script src="/static/jquery/jquery-1.12.4.js"></script>
     <script>
-        $('#nav-btn').click(function() {
+        $('#nav-btn').click(function () {
             $('#nav-div').toggleClass('collapse');  // 点击出现下拉菜单
-            
-            if($('#nav-div').hasClass('collapse')){
+
+            if ($('#nav-div').hasClass('collapse')) {
                 $('#btn-span').removeClass('glyphicon glyphicon-chevron-down').addClass('glyphicon glyphicon-chevron-left');
             }
-            else{
-                $('#btn-span').removeClass('glyphicon glyphicon-chevron-left').addClass('glyphicon glyphicon-chevron-down');   
+            else {
+                $('#btn-span').removeClass('glyphicon glyphicon-chevron-left').addClass('glyphicon glyphicon-chevron-down');
             }
             return false;  // 取消事件冒泡
-        })
+        });
     </script>
 </body>
 

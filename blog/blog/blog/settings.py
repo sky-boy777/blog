@@ -130,11 +130,13 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
 # 静态文件路径（css，js）
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+# 部署上线的时候使用来收集静态文件
+# STATIC_ROOT = os.path.join(BASE_DIR, 'ssss')
 
 # 发送邮件
 EMAIL_FROM = 'BYC账号激活<1251779123@qq.com>'   # 收件人看到的发送者名称，没有默认是EMAIL_HOST_USER
@@ -152,7 +154,6 @@ CACHES = {
         'LOCATION': 'blog_cache_table'
     }
 }
-
 # redis做缓存
 # CACHES = {
 #     'default': {
@@ -162,42 +163,9 @@ CACHES = {
 #     }
 # }
 
-
 # 富文本图片上传的位置
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/media/'
-# 富文本默认配置
-# MDEDITOR_CONFIGS = {
-#     'default': {
-#         'width': '90% ',  # 宽度
-#         'heigth': '100% ',  # 高度
-#         'toolbar': ["undo", "redo", "|",
-#                     "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
-#                     "h1", "h2", "h3", "h5", "h6", "|",
-#                     "list-ul", "list-ol", "hr", "|",
-#                     "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime"
-#                                                                                                            "emoji",
-#                     "html-entities", "pagebreak", "goto-line", "|",
-#                     "help", "info",
-#                     "||", "preview", "watch", "fullscreen"],  # 编辑栏工具
-#         'upload_image_formats': ["jpg", "jpeg", "gif", "png", "bmp", "webp"],  # 图片上传格式
-#         'image_folder': 'editor',  # image save the folder name
-#         'theme': 'default',  # edit box theme, dark / default
-#         'preview_theme': 'default',  # Preview area theme, dark / default
-#         'editor_theme': 'default',  # edit area theme, pastel-on-dark / default
-#         'toolbar_autofixed': True,  # Whether the toolbar capitals
-#         'search_replace': True,  # Whether to open the search for replacement
-#         'emoji': True,  # whether to open the expression function
-#         'tex': True,  # whether to open the tex chart function
-#         'flow_chart': True,  # whether to open the flow chart function
-#         'sequence': True,  # Whether to open the sequence diagram function
-#         'watch': True,  # Live preview
-#         'lineWrapping': False,  # lineWrapping
-#         'lineNumbers': False,  # lineNumbers
-#         'languaje': 'zh'  # zh / en / es
-#     }
-#
-# }
 
 
 
