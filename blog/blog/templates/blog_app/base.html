@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-{% load static %}  <!--加载静态文件css、js-->
+{% load static %}
+<!--加载静态文件css、js-->
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/images/favicon.ico" />
     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="/static/css/base.css">
@@ -31,11 +33,22 @@
                     <li><a href="{% url 'blog_app:duanzi' %}">段子</a></li>
                     <li><a href="{% url 'blog_app:about' %}">关于我</a></li>
                     <li><a></a></li>
-                    {% if request.user.is_authenticated %} {# 是否登录 #}
-                    <li><a href="#">{{ request.user.username }}</a></li>
-                    <li><a href="{% url 'user_app:logout' %}">退出登录</a></li>
-                    <li><a href="{% url 'user_app:change_password' %}">修改密码</a></li>
+
+                    {# 已登录的情况 #}
+                    {% if request.user.is_authenticated %}
+                    <li class="li">
+                        <a href="#">{{ request.user.username }} <span class="caret"></span></a>
+                        <ul class="ul_down nav navbar-nav">
+                            <li><a href="{% url 'user_app:logout' %}">退出登录</a></li>
+                            <li><a href="{% url 'user_app:change_password' %}">修改密码</a></li>
+
+                            {% if request.user.is_superuser %}
+                            <li><a href="/houtaiguanli666/">后台管理</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
                     {% else %}
+                    {# 未登录的情况 #}
                     <li><a href="{% url 'user_app:login' %}">去登录</a></li>
                     <li><a href="{% url 'user_app:register' %}">注册</a></li>
                     {% endif %}
@@ -72,8 +85,17 @@
 
     <!--底部开始-->
     <div class="buttom">
-        <p>个人网站</p>
-        <p>今日流量5</p>
+        <h3>BYC个人博客网站</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>联系邮箱：1251779123@qq.com</p>
+                </div>
+                <div class="col-md-6">
+                    <p></p>
+                </div>
+            </div>
+        </div>
     </div>
     <!--底部结束-->
 

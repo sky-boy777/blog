@@ -74,7 +74,7 @@ class DuanziView(View):
             duanzi.append(i)
 
         # 2、产生分页器
-        paginator = Paginator(duanzi, 5)  # 每页显示十条
+        paginator = Paginator(duanzi, 7)  # 每页显示十条
         # 获取页码
         page = request.GET.get('page', 1)
         pager = paginator.get_page(page)  # 请求的页

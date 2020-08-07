@@ -7,14 +7,7 @@
 {% endblock header %}
 
 
-
-
-
-
 {% block content %} {# 内容 #}
-
-{% load cache %}  {# 加载缓存 #}
-{% cache 10 'partail_cache' %}  {# 缓存开始 #}
 <div class="container">
   {% for content in pager.object_list %}
   <div class="row">
@@ -54,11 +47,8 @@
 
       {# 最后一页 #}
       <li><a href="/duanzi/?page={{ paginator.num_pages }}&keyword={{ keyword }}">共{{ paginator.num_pages }}页</a></li>
-
     </ul>
   </nav>
 </div>
-{% endcache %}  {# 缓存结束 #}
-
 {% endblock content %}
 
