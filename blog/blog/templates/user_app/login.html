@@ -45,8 +45,11 @@
 <!--                      <input type="checkbox"> 记住我-->
 <!--                    </label>-->
 <!--                  </div>-->
+                    <input placeholder="请输入验证码" name="captcha_1" type="text" >
+                    <img alt="验证码" src="{{ image_url }}">
+                    <input name="captcha_0" value="{{ hashkey }}" type="hidden">
+                    <div class="red">{{ form.captcha.errors }}</div>
                   <button type="submit" class="btn btn-default">登录</button>
-
                 </form>
                  <p></p>
                  <div><a href="{% url 'user_app:register' %}"><span class="h3">注册</span></a></div>

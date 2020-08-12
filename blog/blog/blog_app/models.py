@@ -35,6 +35,21 @@ class Blog(models.Model):
         db_table = 'blog'
 
 
+class LeaveAMessageModel(models.Model):
+    '''留言表'''
+    id = models.AutoField(primary_key=True)
+    # 留言内容
+    content = models.TextField(null=False, verbose_name='内容')
+    # 留言创建时间
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name='时间')
+    # 谁留的言
+    username = models.CharField(max_length=30, verbose_name='用户')
+
+    class Meta:
+        db_table = 'leave_a_message'
+
+
+
 
 
 

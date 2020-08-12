@@ -2,9 +2,12 @@ from django.shortcuts import render, reverse, redirect
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import ListView
-from .models import Duanzi, Blog
+from .models import Duanzi, Blog, LeaveAMessageModel
 from django.core.paginator import Paginator  # 分页
 import markdown
+from user_app.myForm import LeaveAMessageForm  # 表单验证
+from captcha.models import CaptchaStore
+from captcha.helpers import captcha_image_url
 from django.views.decorators.cache import cache_page  # 页面缓存
 from django.utils.decorators import method_decorator  # 将函数装饰器转换为方法装饰器
 import random
@@ -110,6 +113,40 @@ class DuanziView(View):
 def aboutme(request):
     '''关于我'''
     return render(request, 'blog_app/about.html')
+
+
+class LeaveAMessageView(View):
+    '''留言板'''
+    def get(self, request):
+        '''查询数据库并渲染'''
+        # 验证码
+        hashkey = CaptchaStore.generate_key()
+        image_url = captcha_image_url(hashkey)
+
+        leave_a_messages = LeaveAMessageModel.objects.all().order_by('-create_time')
+        return render(request, 'blog_app/leave_a_message.html', locals())
+
+    def post(self, request):
+        '''接收数据并保存'''
+        # 验证码
+        hashkey = CaptchaStore.generate_key()
+        image_url = captcha_image_url(hashkey)
+
+        leave_a_messages = LeaveAMessageModel.objects.all().order_by('-create_time')
+        form = LeaveAMessageForm(request.POST)
+        if form.is_valid():
+            content = request.POST.get('content')
+            username = request.user.username if request.user.is_authenticated else '匿名用户'
+            try:
+                leave_a_message = LeaveAMessageModel()
+                leave_a_message.content = content
+                leave_a_message.username = username
+                leave_a_message.save()
+            except:
+                return render(request, 'blog_app/leave_a_message.html', locals(), {'msg': '出错了'})
+            return render(request, 'blog_app/leave_a_message.html', locals())
+        else:
+            return render(request, 'blog_app/leave_a_message.html', locals(), {'form': form})
 
 
 def blog_detail(request):

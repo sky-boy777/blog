@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'blog_app',
     # 富文本
     'mdeditor',
+    # 图形验证码
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -136,7 +138,7 @@ STATICFILES_DIRS = [
 ]
 
 # 部署上线的时候使用来收集静态文件
-# STATIC_ROOT = os.path.join(BASE_DIR, 'ssss')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 发送邮件
 EMAIL_FROM = 'BYC账号激活<1251779123@qq.com>'   # 收件人看到的发送者名称，没有默认是EMAIL_HOST_USER
@@ -167,5 +169,17 @@ CACHES = {
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/media/'
 
+# 图像验证码配置
+CAPTCHA_FONT_SIZE = 22  # 字体大小（默认22）
+CAPTCHA_IMAGE_SIZE = (80, 30)  # 图片大小（宽高）
+CAPTCHA_TIMEOUT = 5  # 每一分钟生成一个验证码
+CAPTCHA_LENGTH = 4  # 验证码上面的字符个数
+CAPTCHA_OUTPUT_FORMAT = u'%(image)s %(hidden_field)s %(text_field)s'  # 输出格式
+CAPTCHA_NOISE_FUNCTIONS = (
+                            # 'captcha.helpers.noise_arcs',  # 弧线
+                           'captcha.helpers.noise_dots',  #
+                            'captcha.helpers.noise_null',  # 无
+                           )   # 干扰的东西
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'  # 随机字符串
 
 

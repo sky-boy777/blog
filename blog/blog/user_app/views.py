@@ -8,17 +8,28 @@ from itsdangerous import SignatureExpired  # token超时发生的异常
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required  # 路由保护
 from django.conf import settings  # 从settings.py里导入
+# 验证码的东西
+from captcha.models import CaptchaStore
+from captcha.helpers import captcha_image_url
 
 
 class RegisterView(View):
     '''用户注册'''
     def get(self, request):
+        # 验证码
+        hashkey = CaptchaStore.generate_key()
+        image_url = captcha_image_url(hashkey)
+
         # 已登录的用户不能访问注册页码跟登录页面
         if request.user.is_authenticated:
             return redirect(reverse('blog_app:index'))
-        return render(request, 'user_app/register.html')
+        return render(request, 'user_app/register.html', locals())
 
     def post(self, request):
+        # 验证码
+        hashkey = CaptchaStore.generate_key()
+        image_url = captcha_image_url(hashkey)
+
         # 验证表单
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -32,7 +43,7 @@ class RegisterView(View):
                 user.is_active = 0  # 改为未激活激的用户
                 user.save()
             except:
-                return render(request, 'user_app/register.html', {'msg': '用户名已存在'})
+                return render(request, 'user_app/register.html', locals(), {'msg': '用户名已存在'})
 
             # 发送激活邮件
             if user:
@@ -50,7 +61,7 @@ class RegisterView(View):
             return redirect(reverse('user_app:login'))
         else:
             # 表单验证失败，返回错误信息
-            return render(request, 'user_app/register.html', {'form': form})
+            return render(request, 'user_app/register.html', locals(), {'form': form})
 
 
 def active(request):
@@ -82,12 +93,19 @@ def active(request):
 class LoginView(View):
     '''用户登录'''
     def get(self, request):
+        # 验证码
+        hashkey = CaptchaStore.generate_key()
+        image_url = captcha_image_url(hashkey)
+
         # 已登录的用户不能访问注册页码跟登录页面
         if request.user.is_authenticated:
             return redirect(reverse('blog_app:index'))
-        return render(request, 'user_app/login.html')
+        return render(request, 'user_app/login.html', locals())
 
     def post(self, request):
+        # 验证码
+        hashkey = CaptchaStore.generate_key()
+        image_url = captcha_image_url(hashkey)
 
         # 验证表单
         form = LoginForm(request.POST)
@@ -100,9 +118,9 @@ class LoginView(View):
             if user:
                     login(request, user)
                     return redirect(reverse('blog_app:index'))
-            return render(request, 'user_app/login.html', {'msg': '用户名或密码不正确'})
+            return render(request, 'user_app/login.html', locals(), {'msg': '用户名或密码不正确'})
         else:
-            return render(request, 'user_app/login.html', {'form': form})
+            return render(request, 'user_app/login.html', locals(), {'form': form})
 
 
 # 路由保护

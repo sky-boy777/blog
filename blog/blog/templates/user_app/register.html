@@ -41,10 +41,14 @@
                     <div class="red">{{ form.password.errors }}</div>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">邮箱:接收激活账号的邮件</label>
+                    <label for="exampleInputEmail1">邮箱(新注册的账号要激活后才能登录)</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱" name="email">
                     <div class="red">{{ form.email.errors }}</div>
                   </div>
+                    <input placeholder="请输入验证码" name="captcha_1" type="text" >
+                    <img alt="验证码" src="{{ image_url }}">
+                    <input name="captcha_0" value="{{ hashkey }}" type="hidden">
+                    <div class="red">{{ form.captcha.errors }}</div>
                   <button type="submit" class="btn btn-default">注册</button>
                 </form>
               </div>

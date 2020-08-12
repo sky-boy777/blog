@@ -1,4 +1,5 @@
 from django import forms
+from captcha.fields import CaptchaField  # 图形验证码
 import re
 
 
@@ -13,6 +14,8 @@ class RegisterForm(forms.Form):
         'min_length': '密码最小长度6位',
         'required': '密码不能为空',
     })
+
+    captcha = CaptchaField()  # 验证码字段
 
     def clean_email(self):
         emial = self.cleaned_data.get('emial')
@@ -33,6 +36,8 @@ class LoginForm(forms.Form):
         'required': '密码不能为空',
     })
 
+    captcha = CaptchaField()  # 验证码字段
+
 
 # 修改密码表单验证
 class PasswordForm(forms.Form):
@@ -43,5 +48,15 @@ class PasswordForm(forms.Form):
         'min_length': '密码最小长度6位',
         'required': '新密码不能为空',
     })
+
+
+# 留言表单验证
+class LeaveAMessageForm(forms.Form):
+    content = forms.CharField(required=True, error_messages={
+        'required': '还没输入，咩都某拒',
+    })
+
+    captcha = CaptchaField()  # 验证码字段
+
 
 
