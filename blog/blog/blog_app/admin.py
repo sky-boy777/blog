@@ -10,13 +10,22 @@ class DuanziAdmin(admin.ModelAdmin):
     search_fields = ['text']
     # 过滤
     # list_filter = ['id']
-    list_per_page = 10  # 每页显示10条
+    list_per_page = 20  # 每页显示10条
 
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ['bid', 'btitle', 'btext', 'btime', 'bfavour', 'bbrowse', 'bcomment']
 
 
+class LeaveAMessageAdmin(admin.ModelAdmin):
+    list_display = ['id', 'content', 'username', 'create_time']
+    # 搜所字段
+    search_fields = ['username']
+    # 过滤
+    list_filter = ['username']
+
+
 admin.site.register(Duanzi, DuanziAdmin)
 admin.site.register(Blog, BlogAdmin)
+admin.site.register(LeaveAMessageModel, LeaveAMessageAdmin)
 
