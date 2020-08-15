@@ -37,6 +37,11 @@ class RegisterView(View):
             username = request.POST.get('username')
             password = request.POST.get('password')
             email = request.POST.get('email')
+
+            # 查询是否已有用户
+            if len(User.objects.filter(username=username)) != 0:
+                msg = '用户名已存在'
+                return render(request, 'user_app/register.html', locals())
             try:
                 # 注册，标为未激活状态,create_user会把密码加密
                 user = User.objects.create_user(username=username, password=password, email=email)
@@ -57,7 +62,8 @@ class RegisterView(View):
                 html = '<h1>%s,欢迎注册</h1> 点击下面链接激活账号(24小时后过期)<br> <a href="%s/user/active/?token=%s">%s/user/active/?token=%s</a>' % (username, settings.HOST_URL, token, settings.HOST_URL, token)
 
                 # 发送邮件
-                send_mail('BYC账号激活', '', '1251779123@qq.com', [email], html_message=html)
+                send_mail('BYC账号激活', '', settings.EMAIL_HOST_USER, [email], html_message=html)
+
             return redirect(reverse('user_app:login'))
         else:
             # 表单验证失败，返回错误信息
