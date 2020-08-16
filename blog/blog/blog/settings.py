@@ -136,8 +136,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-
-# 部署上线的时候使用来收集静态文件
+# 部署上线的时候用来收集静态文件
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 发送邮件
@@ -146,17 +145,19 @@ EMAIL_FROM = 'BYC账号激活<bycwql@163.com>'   # 收件人看到的发送者�
 EMAIL_HOST = 'smtp.163.com'  # smtp服务的邮箱服务器， 如果是 163 改成 smtp.163.com
 EMAIL_HOST_USER = 'bycwql@163.com'  # 发送邮件的邮箱
 EMAIL_HOST_PASSWORD = 'JBRHBAFRQNGZTPHP'  # 开启SMTP后的客户端授权码
+# 上线部署
 # EMAIL_PORT = 465
+# EMAIL_USE_SSL = True
 
 # 缓存，不配置默认使用本地内存缓存
 # 数据库缓存配置，然后python manage.py createcachetable生成缓存表
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        # 缓存表的名字
-        'LOCATION': 'blog_cache_table'
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+#         # 缓存表的名字
+#         'LOCATION': 'blog_cache_table'
+#     }
+# }
 # redis做缓存
 # CACHES = {
 #     'default': {

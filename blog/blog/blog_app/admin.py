@@ -25,7 +25,17 @@ class LeaveAMessageAdmin(admin.ModelAdmin):
     list_filter = ['username']
 
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'content', 'username', 'create_time', 'bid']
+    # 搜所字段
+    search_fields = ['username', 'bid']
+    # 过滤
+    list_filter = ['username']
+
+
 admin.site.register(Duanzi, DuanziAdmin)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(LeaveAMessageModel, LeaveAMessageAdmin)
+admin.site.register(CommentModel, CommentAdmin)
+
 

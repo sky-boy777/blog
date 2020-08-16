@@ -49,6 +49,22 @@ class LeaveAMessageModel(models.Model):
         db_table = 'leave_a_message'
 
 
+class CommentModel(models.Model):
+    '''文章评论'''
+    id = models.AutoField(primary_key=True)
+    # 内容
+    content = models.TextField(null=False, verbose_name='内容')
+    # 创建时间
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name='时间')
+    # 谁的评论
+    username = models.CharField(max_length=30, verbose_name='用户')
+    # 文章id
+    bid = models.IntegerField(verbose_name='文章id')
+
+    class Meta:
+        db_table = 'blog_comment'
+
+
 
 
 

@@ -1,16 +1,8 @@
-body {
-    margin-bottom: 160px;
-}
-
+body { padding-bottom: 70px; }
 /* 公共样式 */
 .buttom {
-        position: fixed;
-        bottom: 0;
-        height: 120px;
-        width: 100%;
-        background-color: black;
+        border-radius: 0%;
         color: white;
-        padding-top: 20px;
         text-align: center;
     }
 .color-white {

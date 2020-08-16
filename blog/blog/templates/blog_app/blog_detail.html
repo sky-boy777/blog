@@ -25,5 +25,35 @@
                 {% endif %}
             </div>
         </div>
-    </div>
+
+<!--文章评论开始-->
+        <br>
+        <hr>
+        <br>
+         <div class="row">
+                <div class="col-md-8">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input class="form-control" name="content" type="text" placeholder="评论">
+                        <div class="red">{{ msg }}</div>
+                        <input class="btn btn-success" type="submit" value="评论一下">
+                    </form>
+                </div>
+         </div>
+    <!--显示评论-->
+         <br>
+         <br>
+     {% for comment in comments %}
+        <div class="row">
+            <div class="col-md-8">
+                <p><span class="glyphicon glyphicon-user"></span>{{ comment.username }}</p>
+                <p class="lead">{{ comment.content }}</p>
+                <p class="h6"><span class="glyphicon glyphicon-time"></span> <i>{{ comment.create_time }}</i></p>
+            </div>
+        </div>
+        <hr>
+     {% endfor %}
+<!--文章评论结束-->
+
+</div>
 {% endblock content %}
