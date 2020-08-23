@@ -1,0 +1,54 @@
+{% extends 'blog_app/base.html' %} {# 加载父模板 #}
+
+
+{% block header %} {# 头 #}
+<link rel="stylesheet" href="/static/css/duanzi.css">
+<title>段子</title>
+{% endblock header %}
+
+
+{% block content %} {# 内容 #}
+<div class="container">
+  {% for content in pager.object_list %}
+  <div class="row">
+    <div class="col-md-10">
+      <p>{{ content.id }}、{{ content.text | safe }}</p>
+    </div>
+  </div>
+  <hr>
+  {% endfor %}
+</div>
+
+<!--分页-->
+<div class="page">
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      {% if pager.has_previous %} {# 上一页 #}
+      <li><a href="/?page=1&keyword={{ keyword }}">第1页</a></li>
+      <li>
+        <a href="/duanzi/?page={{ pager.previous_page_number  }}&keyword={{ keyword }}" aria-label="Previous">
+          <span aria-hidden="true">上一页</span>
+        </a>
+      </li>
+      {% endif %}
+      <li><a href="javascript:void(0)">{{ pager.number }}/{{ paginator.num_pages }}</a></li>
+      <!--
+          {% for page in paginator.page_range %}
+          <li><a href="/duanzi/?page={{ page }}&keyword={{ keyword }}">{{ page }}</a></li>
+          {% endfor %}
+          -->
+      {% if pager.has_next %} {# 下一页 #}
+      <li>
+        <a href="/duanzi/?page={{ pager.next_page_number }}&keyword={{ keyword }}" aria-label="Next">
+          <span aria-hidden="true">下一页</span>
+        </a>
+      </li>
+      {% endif %}
+
+      {# 最后一页 #}
+      <li><a href="/duanzi/?page={{ paginator.num_pages }}&keyword={{ keyword }}">共{{ paginator.num_pages }}页</a></li>
+    </ul>
+  </nav>
+</div>
+{% endblock content %}
+

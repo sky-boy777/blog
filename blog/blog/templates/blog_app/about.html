@@ -1,0 +1,26 @@
+{% extends 'blog_app/base.html' %}      {# 加载父模板 #}
+
+
+{% block header %}  {# 头 #}
+<title>关于我</title>
+{% endblock header %}
+
+
+
+
+{% block search %}                       {# 搜索框 #}
+{% endblock search %}
+
+{% block content %}                     {# 内容 #}
+ <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h1>一个知识积累的个人空间</h1>
+                <h3>在日常学习中，将知识记录下来，日后当不记得的时候再来看看这里的笔记</h3>
+                <h3>有本人的学习笔记，有在网上爬取的数据，数据会陆续增加</h3>
+                <h4>下面是csdn个人主页链接</h4>
+                <a href="https://me.csdn.net/qq_44657868" target="_blank"><h4>https://me.csdn.net/qq_44657868</h4></a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

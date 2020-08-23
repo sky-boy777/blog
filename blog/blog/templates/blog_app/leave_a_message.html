@@ -1,0 +1,44 @@
+{% extends 'blog_app/base.html' %}      {# 加载父模板 #}
+
+
+{% block header %}  {# 头 #}
+<title>留言板</title>
+{% endblock header %}
+
+
+{% block search %}                       {# 搜索框 #}
+{% endblock search %}
+
+{% block content %}                     {# 内容 #}
+ <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <h1>来都来了</h1>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input class="form-control" name="content" type="text" placeholder="说点什么">
+                    <div class="red">{{ form.content.errors }}{{ msg }}</div>
+<!--                    {{ form.captcha }} {# 图形验证码 #}-->
+                    <input placeholder="请输入验证码" name="captcha_1" type="text" >
+                    <img alt="验证码" src="{{image_url}}">
+                    <input name="captcha_0" value="{{hashkey}}" type="hidden">
+                    <div class="red">{{ form.captcha.errors }}</div>
+
+                    <input class="btn btn-success" type="submit" value="提交">
+                </form>
+            </div>
+        </div>
+     <br>
+     <br>
+        {% for leave_a_message in leave_a_messages %}
+        <div class="row">
+            <div class="col-md-8">
+                <p><span class="glyphicon glyphicon-user"></span> {{ leave_a_message.username }}:</p>
+                <p class="lead">{{ leave_a_message.content }}</p>
+                <p class="h6"><span class="glyphicon glyphicon-time"></span> <i>{{ leave_a_message.create_time }}</i></p>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+ </div>
+{% endblock content %}
