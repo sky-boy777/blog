@@ -90,7 +90,7 @@ DATABASES = {
         'NAME': 'blog',  # 数据库名字
         'USER': 'root',  # 用户名
        #  'PASSWORD': 'mysql_password',  # 密码
-	   'PASSWORD': 'root',
+	   'PASSWORD': 'mysql',
         'HOST': '127.0.0.1',  # 数据库地址
         'PORT': 3306,  # 端口号
     }
@@ -149,7 +149,7 @@ EMAIL_HOST = 'smtp.163.com'  # smtp服务的邮箱服务器， 如果是 163 改
 EMAIL_HOST_USER = 'bycwql@163.com'  # 发送邮件的邮箱
 EMAIL_HOST_PASSWORD = 'JBRHBAFRQNGZTPHP'  # 开启SMTP后的客户端授权码
 EMAIL_USE_SSL = True
-EMAIL_PORT = 465 #SMTP端口需要SSL
+EMAIL_PORT = 465  # SMTP端口需要SSL
 
 # 缓存，不配置默认使用本地内存缓存
 # 数据库缓存配置，然后python manage.py createcachetable生成缓存表

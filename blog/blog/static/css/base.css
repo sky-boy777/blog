@@ -1,21 +1,18 @@
-body { padding-bottom: 70px; }
-
-/* 公共样式 */
-
+/* 模板样式 */
+body{
+    padding: 0;
+}
 .buttom {
-
+        background-color: black;
+        width: 100%;
         border-radius: 0%;
-
-        color: white;
-
         text-align: center;
-
+        color:white;
+        padding: 5px;
     }
 
 .color-white {
-
         color: white;
-
     }
 
 .red{ color: red; }

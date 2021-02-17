@@ -13,7 +13,6 @@ from django.utils.decorators import method_decorator  # 将函数装饰器转换
 import random
 
 
-
 def welcome(request):
     '''欢迎页'''
     return render(request, 'blog_app/welcome.html')
@@ -22,7 +21,7 @@ def welcome(request):
 class IndexView(View):
     '''博客首页'''
     def get(self, request):
-        # 反爬措施，请求参数混淆:http://127.0.0.1:8000/blog_detail/?key=88888888&bid=1
+        # 请求参数混淆:http://127.0.0.1:8000/blog_detail/?key=88888888&bid=1
         key = '88888888'
 
 
