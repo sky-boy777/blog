@@ -11,11 +11,11 @@
 {% block content %}                     {# 内容 #}
  <div class="container">
      {% for blog in pager.object_list %}            {# 一条博客一行 #}
-        <div class="row">
+        <div class="row" style="margin-top: 30px;">
             <div class="col-md-10">
                 <a href="/blog_detail/?key={{ key }}&bid={{ blog.bid }}" style="text-decoration: none;"><span class="h4">{{ blog.btitle }}</span></a>
                 <p></p>
-                <p><span class="glyphicon glyphicon-eye-open" id="browse"></span> {{ blog.bbrowse }} &nbsp;&nbsp;<i>{{ blog.btime }}</i></p>
+                <p class="text-muted"><span class="glyphicon glyphicon-eye-open" id="browse"></span> {{ blog.bbrowse }} &nbsp;&nbsp;<i>{{ blog.btime }}</i></p>
                 <hr >
             </div>
         </div>

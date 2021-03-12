@@ -13,6 +13,8 @@ class Duanzi(models.Model):
     class Meta:
         managed = False
         db_table = 'duanzi'
+        verbose_name_plural = '搞笑段子'
+
 
 
 class Blog(models.Model):
@@ -33,6 +35,7 @@ class Blog(models.Model):
 
     class Meta:
         db_table = 'blog'
+        verbose_name_plural = '博客'
 
 
 class LeaveAMessageModel(models.Model):
@@ -47,6 +50,7 @@ class LeaveAMessageModel(models.Model):
 
     class Meta:
         db_table = 'leave_a_message'
+        verbose_name_plural = '留言'
 
 
 class CommentModel(models.Model):
@@ -63,6 +67,7 @@ class CommentModel(models.Model):
 
     class Meta:
         db_table = 'blog_comment'
+        verbose_name_plural = '文章评论'
 
 
 

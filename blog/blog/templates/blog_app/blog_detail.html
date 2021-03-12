@@ -20,7 +20,7 @@
 		<div class="col-md-10">
 			{% if blog %}
 			<h1>{{ blog.btitle }}</h1>
-			<p><i>{{ blog.btime }}</i> &nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span> {{ blog.bbrowse }}
+			<p class="text-muted"><i>{{ blog.btime }}</i> &nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span> {{ blog.bbrowse }}
 			</p>
 			<hr />
 			<p>{{ blog.btext | safe }}</p>
@@ -40,8 +40,9 @@
 				{% csrf_token %}
 				<input class="form-control" name="content" type="text" placeholder="评论">
 				<div class="red">{{ msg }}</div>
+				<br>
 				<input class="btn btn-success" type="submit" value="评论一下">
-                    </form>
+			</form>
 		</div>
 	</div>
 	<!--显示评论-->
@@ -50,14 +51,14 @@
      {% for comment in comments %}
 	<div class="row">
 		<div class="col-md-8">
-			<p><span class="glyphicon glyphicon-user"></span> {{ comment.username }}</p>
+			<p class="text-muted"><span class="glyphicon glyphicon-user"></span> {{ comment.username }}</p>
 			<p class="lead">{{ comment.content }}</p>
-			<p class="h6"><span class="glyphicon glyphicon-time"></span> <i>{{ comment.create_time }}</i></p>
+			<p class="h6 text-muted"><span class="glyphicon glyphicon-time"></span> <i>{{ comment.create_time }}</i></p>
 		</div>
 	</div>
 	<hr>
 	{% endfor %}
-	<!--文章评论结束-->
+	<!--评论结束-->
 
 </div>
 {% endblock content %}

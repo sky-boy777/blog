@@ -91,7 +91,7 @@
 <!--            <p class="h3">BYC个人网站</p>-->
 <!--            <p>联系邮箱：1251779123@qq.com</p>-->
 <!--    </div>-->
-    <div class="buttom">
+    <div class="bottom">
         <p class="h4">BYC个人网站</p>
         <p>联系邮箱：1251779123@qq.com</p>
     </div>
@@ -110,6 +110,17 @@
             }
             return false;  // 取消事件冒泡
         });
+
+        // 当元素距离底部大于0时，添加固定定位css
+        var b_height = $('.bottom').offset().top;
+        var w_height = $(window).height();
+        // 窗口可视区域高度 - 元素距离顶部高度 = 元素距离底部距离
+        if (w_height - b_height > 0){
+            $('.bottom').addClass('navbar-fixed-bottom');
+        };
+        if (w_height - b_height < 0){
+            $('.bottom').removeClass('navbar-fixed-bottom');
+        };
     </script>
 </body>
 

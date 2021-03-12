@@ -2,7 +2,8 @@
 body{
     padding: 0;
 }
-.buttom {
+.container { background-color: white; }
+.bottom {
         background-color: black;
         width: 100%;
         border-radius: 0%;
@@ -11,40 +12,22 @@ body{
         padding: 5px;
     }
 
-.color-white {
-        color: white;
-    }
+.color-white { color: white; }
 
 .red{ color: red; }
 
 .page { text-align:center; }
 
-
-
 .ul_down{
-
             position: absolute;
-
             z-index: 9999;
-
             background-color: black;
-
         }
-
-
-
 .li>ul{
-
             display: none;
-
         }
-
-
-
 .li:hover>ul{
-
             display: block;
-
         }
 
 
