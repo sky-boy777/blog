@@ -4,21 +4,33 @@
 <meta name="description" content="BYC博客，个人博客网站，python，scrapy，django，爬虫，BYC个人网站，笔记">
 <link rel="stylesheet" type="text/css" href="/static/css/index.css">
 <title>博客</title>
+<style>
+    .s_row {
+        margin-top: 30px;
+        border: 1px solid #eae4e4;
+        padding: 10px;
+        transition: all .2s;
+        }
+
+    a:hover .s_row {
+        box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+        background-color: #ebebee;
+     }
+</style>
 {% endblock header %}
-
-
 
 {% block content %}                     {# 内容 #}
  <div class="container">
      {% for blog in pager.object_list %}            {# 一条博客一行 #}
-        <div class="row" style="margin-top: 30px;">
-            <div class="col-md-10">
-                <a href="/blog_detail/?key={{ key }}&bid={{ blog.bid }}" style="text-decoration: none;"><span class="h4">{{ blog.btitle }}</span></a>
+      <a href="/blog_detail/?key={{ key }}&bid={{ blog.bid }}" style="text-decoration: none;">
+        <div class="s_row row">
+            <div>
+                <h4>{{ blog.btitle }}</h4>
                 <p></p>
                 <p class="text-muted"><span class="glyphicon glyphicon-eye-open" id="browse"></span> {{ blog.bbrowse }} &nbsp;&nbsp;<i>{{ blog.btime }}</i></p>
-                <hr >
             </div>
         </div>
+      </a>
      {% endfor %}
  </div>
 
