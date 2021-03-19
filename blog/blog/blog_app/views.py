@@ -82,7 +82,7 @@ class DuanziView(View):
             duanzi.append(i)
 
         # 2、产生分页器
-        paginator = Paginator(duanzi, 20)  # 每页显示十条
+        paginator = Paginator(duanzi, 20)  # 每页显示条数
         # 获取页码
         page = request.GET.get('page', 1)
         pager = paginator.get_page(page)  # 请求的页
@@ -173,7 +173,14 @@ def blog_detail(request):
     # get
     try:
         blog = Blog.objects.get(bid=bid)  # 根据文章id查询一条数据
+
         comments = CommentModel.objects.filter(bid=bid).order_by('-create_time')  # 文章的全部评论
+        # 分页
+        paginator = Paginator(comments, 2)
+        # 获取页码
+        page = request.GET.get('page', 1)
+        pager = paginator.get_page(page)  # 请求的页
+
         # blog.btext = markdown.markdown(blog.btext)  # 富文本转换成HTML
 
         blog.btext = markdown.markdown(blog.btext, extensions=[  # 扩展参考官方：https://python-markdown.github.io/extensions/
