@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # 账号激活链接主机名，将来换成域名
-# HOST_URL = 'http://47.112.208.199'
+# HOST_URL = 'http://www.byc.ini/'
 HOST_URL = 'http://127.0.0.1:8000'
 
 

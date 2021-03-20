@@ -21,11 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6c71c6ee-b71f-4430-98ff-d9706ec16c35" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/blog.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../b_env/Lib/site-packages/Django-2.2.dist-info/INSTALLER" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../b_env/Lib/site-packages/Django-2.2.dist-info/LICENSE" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../b_env/Lib/site-packages/Django-2.2.dist-info/METADATA" beforeDir="false" />

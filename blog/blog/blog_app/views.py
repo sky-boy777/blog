@@ -24,7 +24,6 @@ class IndexView(View):
         # 请求参数混淆:http://127.0.0.1:8000/blog_detail/?key=88888888&bid=1
         key = '88888888'
 
-
         # 1、尝试获取关键字，然后决定查询条件
         keyword = request.GET.get('keyword')  # keyword是字符串类型：None <class 'str'>
         # print(keyword, type(keyword))
@@ -128,6 +127,13 @@ class LeaveAMessageView(View):
         image_url = captcha_image_url(hashkey)
 
         leave_a_messages = LeaveAMessageModel.objects.all().order_by('-create_time')
+
+        # 分页
+        paginator = Paginator(leave_a_messages, 20)
+        # 获取页码
+        page = request.GET.get('page', 1)
+        pager = paginator.get_page(page)  # 请求的页
+
         return render(request, 'blog_app/leave_a_message.html', locals())
 
     def post(self, request):
@@ -137,6 +143,13 @@ class LeaveAMessageView(View):
         image_url = captcha_image_url(hashkey)
 
         leave_a_messages = LeaveAMessageModel.objects.all().order_by('-create_time')
+
+        # 分页
+        paginator = Paginator(leave_a_messages, 20)
+        # 获取页码
+        page = request.GET.get('page', 1)
+        pager = paginator.get_page(page)  # 请求的页
+
         form = LeaveAMessageForm(request.POST)
         if form.is_valid():
             content = request.POST.get('content')
