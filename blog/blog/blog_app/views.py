@@ -19,14 +19,14 @@ def welcome(request):
 
 
 class IndexView(View):
-    '''博客首页'''
+    """博客列表页"""
     def get(self, request):
         # 请求参数混淆:http://127.0.0.1:8000/blog_detail/?key=88888888&bid=1
         key = '88888888'
 
         # 1、尝试获取关键字，然后决定查询条件
         keyword = request.GET.get('keyword')  # keyword是字符串类型：None <class 'str'>
-        # print(keyword, type(keyword))
+
         if keyword != 'None' and keyword is not None:
             # 查询数据库
             blogs = Blog.objects.filter(btitle__icontains=keyword).order_by('-btime')
@@ -43,7 +43,7 @@ class IndexView(View):
         # 3、返回
         return render(request, 'blog_app/index.html', locals())
 
-        # 搜索框提交post请求
+    # 搜索框提交post请求
     def post(self, request):
         # 1、获取过滤条件，然后查询数据库
         keyword = request.POST.get('keyword')
@@ -51,7 +51,6 @@ class IndexView(View):
             # 查询数据库
             blogs = Blog.objects.filter(btitle__icontains=keyword).order_by('-btime')
         else:
-            # blogs = Blog.objects.all()
             return redirect(reverse('blog_app:index'))
 
         # 2、分页
@@ -179,6 +178,9 @@ def blog_detail(request):
                 # 保存评论
                 username = request.user.username if request.user.is_authenticated else '匿名用户'
                 comment = CommentModel(content=content, username=username, bid=bid)
+                blog = Blog.objects.get(bid=bid)
+                blog.bcomment += 1  # 评论数加一
+                blog.save()
                 comment.save()
             except:
                 return redirect(reverse('blog_app:blog_detail'))

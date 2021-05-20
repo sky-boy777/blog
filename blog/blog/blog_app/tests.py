@@ -2,15 +2,26 @@ from django.test import TestCase
 
 # Create your tests here.
 
-s = '2.00+0.46+0.25(285714)'
-arr = s.split('+')
-print(arr)
-l = []
-for i in arr:
-    if i.split('.')[0] != '0':
-        i = i.split('.')[0]
-    l.append(i)
+class A():
+    def __init__(self):
+        print("A")
 
-s = '+'.join(l)
-print(s)
+class B(A):
+    pass
+    # def __init__(self):
+    #     print("B")
 
+class C(A):
+    pass
+    # def __init__(self):
+    #     print("C")
+
+class E:
+    def __init__(self):
+        print('E')
+
+class D(B,C,E):
+    pass
+
+print(D.__mro__)
+D()

@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # 账号激活链接主机名，将来换成域名
-# HOST_URL = 'http://www.byc.ini/'
+# HOST_URL = 'http://www.byc.ink/'
 HOST_URL = 'http://127.0.0.1:8000'
 
 
@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     # 图形验证码
     'captcha',
 ]
-
+from django.contrib.sessions.middleware import SessionMiddleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -89,8 +89,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blog',  # 数据库名字
         'USER': 'root',  # 用户名
-       #  'PASSWORD': 'mysql_password',  # 密码
-	   'PASSWORD': 'mysql',
+        # 'PASSWORD': 'mysql_password',  # 密码
+	    'PASSWORD': 'mysql',
         'HOST': '127.0.0.1',  # 数据库地址
         'PORT': 3306,  # 端口号
     }
@@ -180,7 +180,7 @@ CAPTCHA_LENGTH = 4  # 验证码上面的字符个数
 CAPTCHA_OUTPUT_FORMAT = u'%(image)s %(hidden_field)s %(text_field)s'  # 输出格式
 CAPTCHA_NOISE_FUNCTIONS = (
                             # 'captcha.helpers.noise_arcs',  # 弧线
-                           'captcha.helpers.noise_dots',  #
+                            'captcha.helpers.noise_dots',  #
                             'captcha.helpers.noise_null',  # 无
                            )   # 干扰的东西
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'  # 随机字符串

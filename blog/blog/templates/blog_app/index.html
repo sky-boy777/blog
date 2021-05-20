@@ -1,4 +1,5 @@
 {% extends 'blog_app/base.html' %}      {# 加载父模板 #}
+{% load my_filter %}
 
 {% block header %}  {# 头 #}
 <meta name="description" content="BYC博客，个人博客网站，python，scrapy，django，爬虫，BYC个人网站，笔记">
@@ -26,7 +27,7 @@
         <div class="s_row row">
             <div>
                 <h4>{{ blog.btitle }}</h4>
-                <p></p>
+                <p style="color:black;">{{ blog.btext | my_f }}</p>
                 <p class="text-muted"><span class="glyphicon glyphicon-eye-open" id="browse"></span> {{ blog.bbrowse }} &nbsp;&nbsp;<i>{{ blog.btime }}</i></p>
             </div>
         </div>
