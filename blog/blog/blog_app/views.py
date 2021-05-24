@@ -2,7 +2,7 @@ from django.shortcuts import render, reverse, redirect
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import ListView
-from .models import Duanzi, Blog, LeaveAMessageModel, CommentModel
+from .models import Duanzi, Blog, LeaveAMessageModel, CommentModel, AboutMeModel
 from django.core.paginator import Paginator  # 分页
 import markdown
 from user_app.myForm import LeaveAMessageForm  # 表单验证
@@ -15,7 +15,13 @@ import random
 
 def welcome(request):
     '''欢迎页'''
-    return render(request, 'blog_app/welcome.html')
+    try:
+        about = AboutMeModel.objects.order_by('-id').first()
+    except:
+        return render(request, 'blog_app/welcome.html')
+    if about:
+        about.jj = markdown.markdown(about.jj)  # 简介转换为html格式字符串
+    return render(request, 'blog_app/welcome.html', locals())
 
 
 class IndexView(View):
@@ -114,7 +120,12 @@ class DuanziView(View):
 
 def aboutme(request):
     '''关于我'''
-    return render(request, 'blog_app/about.html')
+    try:
+        about = AboutMeModel.objects.order_by('-id').first()
+    except:
+        content = None
+    content = markdown.markdown(about.content)  # 转换未html格式字符串
+    return render(request, 'blog_app/about.html', {'content': content})
 
 
 class LeaveAMessageView(View):
@@ -191,7 +202,7 @@ def blog_detail(request):
 
         comments = CommentModel.objects.filter(bid=bid).order_by('-create_time')  # 文章的全部评论
         # 分页
-        paginator = Paginator(comments, 2)
+        paginator = Paginator(comments, 20)
         # 获取页码
         page = request.GET.get('page', 1)
         pager = paginator.get_page(page)  # 请求的页

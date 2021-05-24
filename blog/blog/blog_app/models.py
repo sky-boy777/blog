@@ -17,11 +17,11 @@ class Duanzi(models.Model):
 class Blog(models.Model):
     """ 博客文章模型 """
     bid = models.AutoField(primary_key=True, verbose_name='文章id')
-    btitle = models.CharField(max_length=254, verbose_name='标题')      # 标题
+    btitle = models.CharField(max_length=254, verbose_name='标题')  # 标题
     btext = MDTextField(verbose_name='正文')  # 正文, 富文本格式，渲染前要转换成HTML格式
-    btime = models.DateTimeField(auto_now_add=True, verbose_name='发布时间')   # 发布时间
-    bfavour = models.PositiveIntegerField(default=0, verbose_name='获赞数')   # 点赞数
-    bbrowse = models.PositiveIntegerField(default=0, verbose_name='浏览数')   # 浏览数
+    btime = models.DateTimeField(auto_now_add=True, verbose_name='发布时间')  # 发布时间
+    bfavour = models.PositiveIntegerField(default=0, verbose_name='获赞数')  # 点赞数
+    bbrowse = models.PositiveIntegerField(default=0, verbose_name='浏览数')  # 浏览数
     bcomment = models.IntegerField(default=0, blank=True, null=True, verbose_name='评论数')  # 评论数
 
     class Meta:
@@ -52,6 +52,19 @@ class CommentModel(models.Model):
     class Meta:
         db_table = 'blog_comment'
         verbose_name_plural = '文章评论'
+
+
+class AboutMeModel(models.Model):
+    """ 欢迎信息，关于我，网站底部信息 """
+    id = models.AutoField(primary_key=True)
+    content = MDTextField(verbose_name='关于我')  # 富文本格式，渲染前要转换成HTML格式，longText类型
+    title = models.CharField(max_length=100, null=True, verbose_name='网站底部标题')  # 网站底部标题
+    lx = models.CharField(max_length=100, null=True, verbose_name='联系方式')  # 网站底部联系方式
+    jj = MDTextField(null=True, verbose_name='首页简介')
+
+    class Meta:
+        db_table = 'about_me'
+        verbose_name_plural = '欢迎信息，关于我，网站底部信息'
 
 
 

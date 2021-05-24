@@ -26,7 +26,7 @@
 {% block content %}                     {# 内容:登录表单 #}
 <div class="container">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-5 col-sm-6">
                 <form action="" method="post">
                     {% csrf_token %}
                     <h1 class="title">BYC</h1>
@@ -40,11 +40,6 @@
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="密码" name="password">
                       <div class="red">{{ form.password.errors }}</div>
                   </div>
-<!--                  <div class="checkbox">-->
-<!--                    <label>-->
-<!--                      <input type="checkbox"> 记住我-->
-<!--                    </label>-->
-<!--                  </div>-->
                     <input placeholder="请输入验证码" name="captcha_1" type="text" >
                     <img alt="验证码" src="{{ image_url }}">
                     <input name="captcha_0" value="{{ hashkey }}" type="hidden">

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import *
 
+
 # Register your models here.
 class DuanziAdmin(admin.ModelAdmin):
     '''段子'''
@@ -15,7 +16,7 @@ class DuanziAdmin(admin.ModelAdmin):
 
 class BlogAdmin(admin.ModelAdmin):
     '''博客'''
-    list_display = ['bid', 'btitle', 'btext', 'btime', 'bfavour', 'bbrowse', 'bcomment']
+    list_display = ['bid', 'btitle', 'btime', 'bfavour', 'bbrowse', 'bcomment', 'btext']
 
 
 class LeaveAMessageAdmin(admin.ModelAdmin):
@@ -36,8 +37,14 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ['username']
 
 
+class AboutMeAdmin(admin.ModelAdmin):
+    """欢迎信息，关于我，网站底部信息"""
+    list_display = ['id', 'title', 'lx', 'jj', 'content']
+
+
 admin.site.register(Duanzi, DuanziAdmin)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(LeaveAMessageModel, LeaveAMessageAdmin)
 admin.site.register(CommentModel, CommentAdmin)
+admin.site.register(AboutMeModel, AboutMeAdmin)
 

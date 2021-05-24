@@ -154,7 +154,6 @@ def change_password(request):
     return render(request, 'user_app/change_password.html')
 
 
-
 def userlogout(request):
     '''退出登录'''
     logout(request)

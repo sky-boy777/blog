@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 注册app
     'blog_app',
+    'user_app',
     # 富文本
     'mdeditor',
     # 图形验证码
@@ -90,7 +91,7 @@ DATABASES = {
         'NAME': 'blog',  # 数据库名字
         'USER': 'root',  # 用户名
         # 'PASSWORD': 'mysql_password',  # 密码
-	    'PASSWORD': 'mysql',
+        'PASSWORD': 'mysql',
         'HOST': '127.0.0.1',  # 数据库地址
         'PORT': 3306,  # 端口号
     }
@@ -134,7 +135,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# 静态文件路径（css，js）
+# 静态文件路径
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -163,7 +164,7 @@ EMAIL_PORT = 465  # SMTP端口需要SSL
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'django_redis.cache.RedisCache',
-#         'LOCATION': 'redis://127.0.0.1:6379/1',  # redis地址（无密码），后面表示使用第二个数据库
+#         'LOCATION': 'redis://127.0.0.1:6379/3',  # redis地址（无密码），后面表示使用第4个数据库
 #         # 'LOCATION': 'redis://密码@192.168.1.101:6379/2',  # redis地址（有密码），后面表示使用第二个数据库
 #     }
 # }

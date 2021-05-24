@@ -5242,7 +5242,9 @@
       <change beforePath="$PROJECT_DIR$/templates/blog_app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_app/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/blog_app/leave_a_message.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_app/leave_a_message.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/blog_app/welcome.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_app/welcome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user_app/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user_app/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_app/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_app/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../nginx配置.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../requirement.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../requirement.txt" afterDir="false" />
     </list>
@@ -5402,5 +5404,9 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state width="1059" height="137" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1621413895496" />
+    <state x="303" y="1" key="search.everywhere.popup" timestamp="1621839854375">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="303" y="1" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1621839854375" />
   </component>
 </project>
