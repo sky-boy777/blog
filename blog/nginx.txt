@@ -40,7 +40,7 @@ upstream blogs {
 }
 
 server {
-     #SSL 访问端口号为 443
+     #SSL 访问端口为 443
      listen 443 ssl;
 
      #填写绑定证书的域名
