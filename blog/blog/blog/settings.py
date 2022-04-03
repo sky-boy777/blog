@@ -144,11 +144,11 @@ STATICFILES_DIRS = [
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # 发送邮件
-EMAIL_FROM = 'BYC账号激活<bycwql@163.com>'   # 收件人看到的发送者名称，没有默认是EMAIL_HOST_USER
+EMAIL_FROM = 'BYC账号激活<xxxx@163.com>'   # 收件人看到的发送者名称，没有默认是EMAIL_HOST_USER
 # 必须
 EMAIL_HOST = 'smtp.163.com'  # smtp服务的邮箱服务器， 如果是 163 改成 smtp.163.com
-EMAIL_HOST_USER = 'bycwql@163.com'  # 发送邮件的邮箱
-EMAIL_HOST_PASSWORD = 'JBRHBAFRQNGZTPHP'  # 开启SMTP后的客户端授权码
+EMAIL_HOST_USER = 'xxxxx'  # 发送邮件的邮箱
+EMAIL_HOST_PASSWORD = 'xxxxx'  # 开启SMTP后的客户端授权码
 EMAIL_USE_SSL = True
 EMAIL_PORT = 465  # SMTP端口需要SSL
 
