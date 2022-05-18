@@ -1,0 +1,127 @@
+{% extends 'base.html' %} {# 加载父模板 #}
+
+{% block header %} {# 头 #}
+<title>博客详情页</title>
+<style>
+	.content img { width:50%; }
+</style>
+{% endblock header %}
+
+{% block search %}{% endblock search %} {# 不显示搜索框 #}
+{% block nav %}
+<ul class="nav navbar-nav navbar-right">
+    {% if request.user.is_authenticated %}   {# 已登录的情况 #}
+    <li class="li">
+        <a href="javascript:void(0);">{{ request.user.username }} <span class="caret"></span></a>
+        <ul class="ul_down nav navbar-nav">
+            <li><a href="{% url 'user_app:logout' %}">退出登录</a></li>
+            <li><a href="{% url 'user_app:change_password' %}">修改密码</a></li>
+
+            {% if request.user.is_superuser %}   {# 登录用户是管理员 #}
+            <li><a href="#">后台管理</a></li>
+            <li><a href="/django_admin666/">django后台</a></li>
+            {% endif %}
+        </ul>
+    </li>
+    {% else %}
+    {# 未登录的情况 #}
+    <li><a href="{% url 'user_app:login' %}">登录</a></li>
+    <li><a href="{% url 'user_app:register' %}">注册</a></li>
+    {% endif %}
+</ul>
+{% endblock nav %}
+
+{% block content %} {# 内容 #}
+{% if blog %}
+<div class="container">
+	<!--文章详情开始-->
+	<div class="row">
+		<div class="col-md-10">
+				<h1>{{ blog.title }}</h1>
+				<div class="text-muted">
+					<span class="glyphicon glyphicon-eye-open">{{ blog.browse }}&nbsp;</span>
+					<span>最近更新 {{ blog.update_time | date:'Y年m月d日' }}</span>
+				</div>
+				<hr />
+				<p class="content">{{ blog.content | safe }}</p>
+		</div>
+	</div>
+	<!--文章详情结束-->
+
+	<!--评论表单开始-->
+	<br id="comment_list">  {# 评论跳转指定锚点 #}
+	<hr>
+	<br>
+	<div class="row">
+		<div class="col-md-8">
+			<form action="" method="post">
+				{% csrf_token %}
+				<input name="bid" type="hidden" value="{{ blog.id }}">
+				<input class="form-control" name="content" type="text" placeholder="评论">
+				{% if error %}
+				<div class="red">{{ error }}</div>
+				{% endif %}
+				<br>
+				<input class="btn btn-success" type="submit" value="提交">
+			</form>
+		</div>
+	</div>
+	<!--评论表单结束-->
+	{% if pager %}
+	<br>
+	<br>
+	{% for comment in pager.object_list %}
+	<div class="row">
+		<div class="col-md-8">
+			<div class="text-muted">
+				<img src="{{ comment.user.avatar.url }}" class="user_avatar" alt="头像">
+				<span>{{ comment.user.username }}</span>
+			</div>
+			<p class="lead">{{ comment.content }}</p>
+			<p class="h6 text-muted">
+				<span class="glyphicon glyphicon-time"></span>
+				<i>{{ comment.create_time }}</i>
+			</p>
+		</div>
+	</div>
+	<hr>
+	{% endfor %}
+	{% endif %}  {# pager #}
+	<!--评论结束-->
+</div>
+
+<!--分页-->
+<div class="text-center">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+		{% if pager.has_previous %}     {# 上一页 #}
+            <li><a href="{% url 'blog_app:blog_detail' %}?page=1&bid={{ blog.id }}#comment_list">第1页</a></li>
+          <li>
+            <a href="{% url 'blog_app:blog_detail' %}?page={{ pager.previous_page_number }}&bid={{ blog.id }}#comment_list" aria-label="Previous">
+              <span aria-hidden="true">上一页</span>
+            </a>
+          </li>
+	    {% endif %}
+          <li><a href="javascript:;">{{ pager.number }}/{{ paginator.num_pages }}</a></li>
+		{% if pager.has_next %}     {# 下一页 #}
+          <li>
+            <a href="{% url 'blog_app:blog_detail' %}?page={{ pager.next_page_number }}&bid={{ blog.id }}#comment_list" aria-label="Next">
+              <span aria-hidden="true">下一页</span>
+            </a>
+          </li>
+	    {% endif %}
+          {# 最后一页 #}
+          <li><a href="{% url 'blog_app:blog_detail' %}?page={{ paginator.num_pages }}&bid={{ blog.id }}#comment_list">共{{ paginator.num_pages }}页</a></li>
+        </ul>
+      </nav>
+</div>
+{% else %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<p>无资源。。。。。。</p>
+		</div>
+	</div>
+</div>
+{% endif %}  {# blog #}
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}      {# 加载父模板 #}
+
+{% block header %}
+<title>404 not found</title>
+{% endblock header %}                       {# header预留块 #}
+
+{% block search %}{% endblock search %}     {# 不显示搜索框 #}
+
+{% block content %}                         {# body内容 #}
+ <div class="container text-center">
+     <img src="/static/images/404.JPG" class="img-rounded">
+ </div>
+{% endblock content %}

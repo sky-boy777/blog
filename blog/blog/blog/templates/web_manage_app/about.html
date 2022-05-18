@@ -1,0 +1,25 @@
+{% extends 'base.html' %}      {# 加载父模板 #}
+
+
+{% block header %}  {# 头 #}
+<title>关于我</title>
+<style>
+    .row a{
+        color:#4e6ef2;
+    }
+</style>
+{% endblock header %}
+
+
+{% block search %}                       {# 搜索框 #}
+{% endblock search %}
+
+{% block content %}                     {# 内容 #}
+ <div class="container">
+     <div class="row">
+         <div class="jumbotron">
+             {{ about.about_me | safe }}
+         </div>
+     </div>
+</div>
+{% endblock content %}

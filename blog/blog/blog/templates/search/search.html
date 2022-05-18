@@ -1,0 +1,86 @@
+{% extends 'movie_app/movie.html' %}      {# 加载父模板 #}
+
+
+{% block header %}  {# 头 #}
+<link rel="stylesheet" href="/static/css/movie.css">
+<title>电影搜索结果页</title>
+{% endblock header %}
+
+{% block content %}      {# body内容 #}
+<div class="container">
+    <div class="row">
+         {% for movie in page %}  {# 遍历page对象 #}
+        <div class="col-xs-6 col-sm-4 col-md-3">
+            <div class="thumbnail">
+                <img src="{{ movie.object.image }}" alt="封面">
+                <div class="caption">
+                    <a href="{% url 'movie_app:movies' %}{{ movie.object.id }}/" target="_blank">
+                        <h4 class="movie_title">{{ movie.object.title }}</h4>
+                    </a>
+                    {% if movie.object.douban_score != -1 %}
+                       <div class="h5">豆瓣评分: {{ movie.object.douban_score }}</div>
+                    {% else %}
+                       <div class="h5">豆瓣评分: 暂无</div>
+                    {% endif %}
+                    {% if movie.object.IMDb_score != -1 %}
+                      <div class="h5">IMDb评分: {{ movie.object.IMDb_score }}</div>
+                    {% else %}
+                      <div class="h5">IMDb评分: 暂无</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+         {% endfor %}
+    </div>
+<!--列表结束-->
+</div>
+
+<!--分页开始-->
+<nav aria-label="Page navigation" class="text-center">
+  <ul class="pagination">
+    <li>{# 第一页 #}
+      <a href="/movies/search?page=1&q={{ query }}">
+         <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+      </a>
+    </li>
+    <li>
+      {% if page.has_previous %} {# 上一页 #}
+      <a href="/movies/search?page={{ page.previous_page_number  }}&q={{ query }}" aria-label="Previous">
+        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+      </a>
+      {% else %}
+      <a href="javascript:void(0)" aria-label="Previous">
+       <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+      </a>
+      {% endif %}
+    </li>
+    <li><a href="javascript:void(0)">{{ page.number }}/{{ paginator.num_pages }}</a></li> {# 当前页 #}
+    <li>
+      {% if page.has_next %} {# 下一页 #}
+      <a href="/movies/search?page={{ page.next_page_number }}&q={{ query }}" aria-label="Next">
+        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+      </a>
+      {% else %}
+      <a href="javascript:void(0)" aria-label="Next">
+        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+      </a>
+      {% endif %}
+    </li>  {# 最后一页 #}
+    <li class="last-child">
+        <a href="/movies/search?page={{ paginator.num_pages }}&q={{ query }}">
+          <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+        </a>
+    </li>
+      <li>
+          <form class="navbar-form navbar-left" role="search" method="get" action="/movies/search">
+            <div class="form-group">
+                 <input type="text" class="form-control" name="page" value="{{ page.number }}">
+            </div>
+              <input type="hidden" name="q" value="{{ query }}">
+            <button type="submit" class="btn btn-default">GO</button>
+          </form>
+      </li>
+  </ul>
+</nav>
+<!--分页结束-->
+{% endblock content %}

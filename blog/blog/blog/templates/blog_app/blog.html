@@ -1,0 +1,103 @@
+{% extends 'base.html' %}      {# 加载父模板 #}
+{% load filters %}  {# 加载自定义过滤器 #}
+
+{% block header %}  {# 头 #}
+<meta name="description" content="python,django,flask,爬虫">
+<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+<style>
+    .text-muted {
+        color: #aca6a6;
+    }
+
+    /* 评论数图标 */
+    .comment { color: #aca6a6; }
+    .comment:hover { color: #337ab7; }
+    a:hover{
+        text-decoration:none;
+    }
+
+    .blog_type_list>li>a { color:#6f9fea; }
+    .blog_type_list>li>a:hover { color: #337ab7; }
+</style>
+<title>博客</title>
+{% endblock header %}
+
+{% block search %}{% endblock search %}  {# 搜索框 #}
+
+{% block content %}                                 {# 内容 #}
+ <div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="row">
+                <ul class="blog_type_list">
+                    <li class="h4">文章分类</li>
+                    <li class="h4"><a href="{% url 'blog_app:blog' %}">全部</a></li>
+                    {% for item in blog_type %}  {# 文章类型列表 #}
+                    <li class="h4">
+                        <a href="{% url 'blog_app:blog' %}?type_id={{ item.blog_type__id }}">
+                            {{ item.blog_type__type }}({{ item.blog_type__count }})
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {# 一条博客一行 #}
+        <div class="col-md-10">
+        {% for blog in pager.object_list %}
+            <div class="row">
+                 <div class="col-md-1">
+                     <img src="{{ blog.user.avatar.url }}" alt="头像" class="img-thumbnail user_avatar">
+                     {% if blog.user.is_superuser %}
+                        <div class="text-center h6">BYC站长</div>
+                     {% else %}
+                        <div title="{{ blog.user.username }}">{{ blog.user.username | str_cut:5 }}</div>
+                     {% endif %}
+                 </div>
+                 <div class="col-md-10">
+                    <a href="{% url 'blog_app:blog_detail' %}?bid={{ blog.id }}" target="_blank">
+                        <h4>{{ blog.title }}</h4>
+                    </a>
+                    <p>{{ blog.content | str_cut }}</p>
+                    <div class="text-muted">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true" id="browse">{{ blog.browse }}&nbsp;</span>
+                        <a href="{% url 'blog_app:blog_detail' %}?bid={{ blog.id }}#comment_list">
+                            <span class="glyphicon glyphicon-comment comment" aria-hidden="true">{{ blog.comment }}&nbsp;</span>
+                        </a>
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">{{ blog.favour }}&nbsp;</span>
+                        <span>发布于{{ blog.create_time | date:'Y年m月d日' }}</span>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+ </div>
+
+<!--分页-->
+<div class="text-center">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+           {% if pager.has_previous %}     {# 上一页 #}
+            <li><a href="{% url 'blog_app:blog' %}?page=1&type_id={{ type_id }}">第1页</a></li>
+          <li>
+            <a href="{% url 'blog_app:blog' %}?page={{ pager.previous_page_number }}&type_id={{ type_id }}" aria-label="Previous">
+              <span aria-hidden="true">上一页</span>
+            </a>
+          </li>
+          {% endif %}
+          <li><a href="javascript:;">{{ pager.number }}/{{ paginator.num_pages }}</a></li>
+          {% if pager.has_next %}     {# 下一页 #}
+          <li>
+            <a href="{% url 'blog_app:blog' %}?page={{ pager.next_page_number }}&type_id={{ type_id }}" aria-label="Next">
+              <span aria-hidden="true">下一页</span>
+            </a>
+          </li>
+          {% endif %}
+          {# 最后一页 #}
+          <li><a href="{% url 'blog_app:blog' %}?page={{ paginator.num_pages }}&type_id={{ type_id }}">共{{ paginator.num_pages }}页</a></li>
+        </ul>
+      </nav>
+</div>
+{% endblock content %}

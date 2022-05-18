@@ -1,0 +1,49 @@
+{% extends 'base.html' %}      {# 加载父模板 #}
+
+{% block header %}                        {# 头 #}
+<title>登录</title>
+{% endblock header %}
+
+
+{% block nav %}{% endblock nav %}                        {# 导航栏 #}
+
+{% block search %}                       {# 搜索框 #}
+{% endblock search %}
+
+{% block content %}                     {# 内容:登录表单 #}
+<div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <h1 class="title">登录BYC</h1>
+                  <div class="form-group">
+                    <label>用户名</label>
+                     <input type="text" class="form-control" value="{{ username }}" placeholder="用户名" name="username">
+                      <div class="red">{{ form.username.errors }}</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input type="password" class="form-control" value="{{ password }}" id="exampleInputPassword1" placeholder="密码" name="password">
+                      <div class="red">{{ form.password.errors }}</div>
+                  </div>
+                    <input placeholder="请输入验证码" name="captcha_1" type="text" >
+                    <img alt="验证码" src="{{ image_url }}">
+                    <input name="captcha_0" value="{{ hashkey }}" type="hidden">
+                    <div class="red">{{ form.captcha.errors }}</div>
+                  <button type="submit" class="btn btn-primary">登录</button>
+                    &nbsp;&nbsp;<a href="{% url 'user_app:find_password' %}">
+                        <span class="h5">忘记密码？</span>
+                        </a>
+                </form>
+                <br>
+                 <div>没有账号?&nbsp;&nbsp;
+                     <a href="{% url 'user_app:register' %}">
+                         <span class="h4">立即注册</span>
+                     </a>
+                 </div>
+                <p class="h5 red">{{ error }}</p>
+              </div>
+        </div>
+    </div>
+{% endblock content %}

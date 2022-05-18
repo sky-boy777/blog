@@ -1,0 +1,120 @@
+{% extends 'base.html' %}      {# 加载父模板 #}
+
+
+{% block header %}  {# 头 #}
+<link rel="stylesheet" href="/static/css/movie.css">
+<title>电影</title>
+{% endblock header %}
+
+{% block search %}       {# 搜索框 #}
+<div class="container">
+    <div class="row">
+        <form class="navbar-form" method="get" action="/movies/search">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control" placeholder="搜索">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-info" id="search_btn">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </span>
+            </div>
+        </form>
+        <div class="s-top-left-new">
+            <a href="{% url 'movie_app:movies' %}">最新</a>
+            <a href="{% url 'movie_app:movies' %}?sortord=score">评分</a>
+            <a href="/movies/search?q=喜剧">喜剧</a>
+            <a href="/movies/search?q=悬疑">悬疑</a>
+            <a href="/movies/search?q=科幻">科幻</a>
+        </div>
+    </div>
+</div>
+{% endblock search %}
+
+{% block content %}      {# body内容 #}
+<div class="container">
+    <!--轮播图开始-->
+<!--    <div class="row">-->
+<!--        <div>-->
+<!--            <div class="jumbotron">-->
+<!--                轮播图-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+    <!--轮播图结束-->
+    <!--列表开始-->
+    <div class="row">
+         {% for movie in pager.object_list %}
+        <div class="col-xs-6 col-sm-4 col-md-3">
+            <div class="thumbnail">
+                <img src="{{ movie.image }}" alt="封面">
+                <div class="caption">
+                    <a href="{% url 'movie_app:movies' %}{{ movie.id }}/" target="_blank">
+                        <h4 class="movie_title">{{ movie.title }}</h4>
+                    </a>
+                    {% if movie.douban_score != -1 %}
+                       <div class="h5">豆瓣评分: {{ movie.douban_score }}</div>
+                    {% else %}
+                       <div class="h5">豆瓣评分: 暂无</div>
+                    {% endif %}
+                    {% if movie.IMDb_score != -1 %}
+                      <div class="h5">IMDb评分: {{ movie.IMDb_score }}</div>
+                    {% else %}
+                      <div class="h5">IMDb评分: 暂无</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+         {% endfor %}
+    </div>
+<!--列表结束-->
+</div>
+
+<!--分页开始-->
+<nav aria-label="Page navigation" class="text-center">
+  <ul class="pagination">
+    <li>{# 第一页 #}
+      <a href="{% url 'movie_app:movies' %}?page=1&sortord={{ sortord }}">
+         <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+      </a>
+    </li>
+    <li>
+      {% if pager.has_previous %} {# 上一页 #}
+      <a href="{% url 'movie_app:movies' %}?page={{ pager.previous_page_number }}&sortord={{ sortord }}" aria-label="Previous">
+        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+      </a>
+      {% else %}
+      <a href="javascript:void(0)" aria-label="Previous">
+       <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+      </a>
+      {% endif %}
+    </li>
+    <li><a href="javascript:void(0)">{{ pager.number }}/{{ paginator.num_pages }}</a></li> {# 当前页 #}
+    <li>
+      {% if pager.has_next %} {# 下一页 #}
+      <a href="{% url 'movie_app:movies' %}?page={{ pager.next_page_number }}&sortord={{ sortord }}" aria-label="Next">
+        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+      </a>
+      {% else %}
+      <a href="javascript:void(0)" aria-label="Next">
+        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+      </a>
+      {% endif %}
+    </li>  {# 最后一页 #}
+    <li class="last-child">
+        <a href="{% url 'movie_app:movies' %}?page={{ paginator.num_pages }}&sortord={{ sortord }}">
+          <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+        </a>
+    </li>
+      <li>
+          <form class="navbar-form navbar-left" role="search" method="get">
+            <div class="form-group">
+                 <input type="text" class="form-control" name="page">  {# 页码 #}
+                <input type="hidden" name="sortord" value="{{ sortord }}">  {# 排序方式 #}
+            </div>
+            <button type="submit" class="btn btn-default">GO</button>
+        </form>
+      </li>
+  </ul>
+</nav>
+<!--分页结束-->
+{% endblock content %}

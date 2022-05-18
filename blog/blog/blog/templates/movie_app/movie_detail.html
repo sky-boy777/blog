@@ -1,0 +1,38 @@
+{% extends 'base.html' %}      {# 加载父模板 #}
+
+{% block header %}  {# 头 #}
+<title>{{ movie.title }}</title>
+{% endblock header %}
+
+{% block search %}{% endblock search %}       {# 不要搜索框 #}
+
+{% block nav %}
+<ul class="nav navbar-nav navbar-right">
+    {% if request.user.is_authenticated %}   {# 已登录的情况 #}
+    <li class="li">
+        <a href="javascript:void(0);">{{ request.user.username }} <span class="caret"></span></a>
+        <ul class="ul_down nav navbar-nav">
+            <li><a href="{% url 'user_app:logout' %}">退出登录</a></li>
+            <li><a href="{% url 'user_app:change_password' %}">修改密码</a></li>
+
+            {% if request.user.is_superuser %}   {# 登录用户是管理员 #}
+            <li><a href="#">后台管理</a></li>
+            <li><a href="/django_admin666/">django后台</a></li>
+            {% endif %}
+        </ul>
+    </li>
+    {% else %}
+    {# 未登录的情况 #}
+    <li><a href="{% url 'user_app:login' %}">登录</a></li>
+    <li><a href="{% url 'user_app:register' %}">注册</a></li>
+    {% endif %}
+</ul>
+{% endblock nav %}
+
+{% block content %}      {# body内容 #}
+<div class="container">
+    <div class="jumbotron">
+        {{ movie.detail | safe }}
+    </div>
+</div>
+{% endblock content %}

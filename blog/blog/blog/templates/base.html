@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{% load static %}         {# 加载静态文件css、js#}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="/static/images/favicon.ico" />
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    {% block header %}{% endblock header %}
+</head>
+
+<body>
+    <!--菜单栏开始-->
+    <nav class="navbar navbar-inverse">
+        <!--切换按钮开始-->
+        <button class="navbar-toggle" id="nav-btn">
+            <span class="color-white glyphicon glyphicon-chevron-left" id="btn-span"></span>
+        </button>
+        <!--切换按钮结束-->
+
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="{% url 'web_manage_app:index' %}" class="navbar-brand">
+                    <img src="/static/images/logo.jpg" alt="logo">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="nav-div">
+                 {% block nav %}
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'web_manage_app:index' %}">首页</a></li>
+                    <li><a href="{% url 'blog_app:blog' %}">博客</a></li>
+                    <li><a href="{% url 'movie_app:movies' %}">电影</a></li>
+                    <li><a href="{% url 'fun_time_app:dz' %}">开心一刻</a></li>
+                    <li><a href="{% url 'web_manage_app:leave_a_message' %}">留言板</a></li>
+                    <li><a href="{% url 'web_manage_app:about' %}">关于我</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if request.user.is_authenticated %}   {# 已登录的情况 #}
+                    <li class="li">
+                        <a href="javascript:void(0);">{{ request.user.username }} <span class="caret"></span></a>
+                        <ul class="ul_down nav navbar-nav">
+                            <li><a href="{% url 'user_app:logout' %}">退出登录</a></li>
+                            <li><a href="{% url 'user_app:change_password' %}">修改密码</a></li>
+
+                            {% if request.user.is_superuser %}   {# 登录用户是管理员 #}
+                            <li><a href="#">后台管理</a></li>
+                            <li><a href="/django_admin666/">django后台</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    {% else %}
+                    {# 未登录的情况 #}
+                    <li><a href="{% url 'user_app:login' %}">登录</a></li>
+                    <li><a href="{% url 'user_app:register' %}">注册</a></li>
+                    {% endif %}
+                </ul>
+                {% endblock nav %}
+            </div>
+        </div>
+    </nav>
+    <!--头部结束-->
+
+     <!--搜索框-->
+    {% block search %}
+     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="navbar-form" method="post" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="keyword" class="form-control" placeholder="搜索">
+                    </div>
+                    <button type="submit" class="btn btn-default" id="search_btn">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+ {% endblock search %}
+    <!--身体开始-->
+    {% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <p>内容</p>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+    <!--身体结束-->
+
+     <!--底部开始-->
+    <div class="bottom">
+        <p class="h4">BYC个人网站</p>
+        <p>联系邮箱：1251779123@qq.com</p>
+    </div>
+    <div id="bottom"></div>
+    <!--底部结束-->
+
+    <script src="/static/jquery/jquery-1.12.4.js"></script>
+    <script>
+        $('#nav-btn').click(function () {
+            $('#nav-div').toggleClass('collapse');  // 点击出现下拉菜单
+
+            if ($('#nav-div').hasClass('collapse')) {
+                $('#btn-span').removeClass('glyphicon glyphicon-chevron-down').addClass('glyphicon glyphicon-chevron-left');
+            }
+            else {
+                $('#btn-span').removeClass('glyphicon glyphicon-chevron-left').addClass('glyphicon glyphicon-chevron-down');
+            }
+            return false;  // 取消事件冒泡
+        });
+
+        // 当元素距离底部大于0时，添加固定定位css
+        var b_height = $('#bottom').offset().top;
+        var w_height = $(window).height();
+        // 窗口可视区域高度 - 元素距离顶部高度 = 元素距离底部距离
+        if (w_height - b_height > 0){
+            $('.bottom').addClass('navbar-fixed-bottom');
+        };
+        if (w_height - b_height < 0){
+            $('.bottom').removeClass('navbar-fixed-bottom');
+        };
+        {% block script %}
+        {% endblock script %}
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+{% extends 'base.html' %} {# 加载父模板 #}
+{% load filters %}  {# 加载自定义过滤器 #}
+
+
+{% block header %} {# 头 #}
+<style>
+  .user_avatar {
+        width:40px;
+        height:40px;
+        border-radius:50%;
+    }
+  .navbar-form { margin-top: 0px; }
+  .navbar-form .form-control { width: 57px; }
+</style>
+<title>开心一刻</title>
+{% endblock header %}
+
+{% block search %}{% endblock search %}  {# 搜索框 #}
+
+{% block content %} {# 内容 #}
+<div class="container">
+  {% for content in pager.object_list %}
+    <div class="col-md-12">
+      <div>
+        <img src="{{ content.user.avatar.url }}" alt="头像" class="img-thumbnail user_avatar">
+        {% if content.user.is_superuser %}
+          <span>BYC站长</span>
+        {% else %}
+          <span>{{ content.user.username }}</span>
+        {% endif %}
+         <span class="text-muted">发布于{{ content.create_time | date:'Y年m月d日' }}</span>
+      </div>
+      <p>{{ content.content | safe }}</p>
+      <hr>
+    </div>
+  {% endfor %}
+</div>
+
+<!--分页开始-->
+<nav aria-label="Page navigation" class="text-center">
+  <ul class="pagination">
+    <li>{# 第一页 #}
+      <a href="{% url 'fun_time_app:dz' %}?page=1">
+         <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+      </a>
+    </li>
+    <li>
+      {% if pager.has_previous %} {# 上一页 #}
+      <a href="{% url 'fun_time_app:dz' %}?page={{ pager.previous_page_number  }}" aria-label="Previous">
+        <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+      </a>
+      {% else %}
+      <a href="javascript:void(0)" aria-label="Previous">
+       <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+      </a>
+      {% endif %}
+    </li>
+    <li><a href="javascript:void(0)">{{ pager.number }}/{{ paginator.num_pages }}</a></li> {# 当前页 #}
+    <li>
+      {% if pager.has_next %} {# 下一页 #}
+      <a href="{% url 'fun_time_app:dz' %}?page={{ pager.next_page_number }}" aria-label="Next">
+        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+      </a>
+      {% else %}
+      <a href="javascript:void(0)" aria-label="Next">
+        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+      </a>
+      {% endif %}
+    </li>  {# 最后一页 #}
+    <li><a href="{% url 'fun_time_app:dz' %}?page={{ paginator.num_pages }}">
+          <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+        </a>
+    </li>
+    <li>
+        <form class="navbar-form navbar-left" role="search" method="get" action="">
+          <div class="form-group">
+               <input type="text" class="form-control" name="page">
+          </div>
+          <button type="submit" class="btn btn-default">GO</button>
+        </form>
+      </li>
+  </ul>
+</nav>
+<!--分页结束-->
+{% endblock content %}
+

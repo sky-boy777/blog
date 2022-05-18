@@ -1,0 +1,21 @@
+*{
+    margin:0px;
+    padding:0px;
+    }
+
+a:visited{
+    color:#fff;
+}
+a:hover{
+    color: blue;
+    text-decoration:none;
+}
+a:active{
+    color:#fff;
+}
+img{
+    border:none;
+}
+ul,ol,li{
+    list-style-type:none;
+}
