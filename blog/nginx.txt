@@ -48,7 +48,7 @@ server {
      #证书文件名称
      # ssl_certificate /etc/nginx/1_www.byc.ink_bundle.crt;      
 
-     #私钥文件名称
+     #私钥文件名
      # ssl_certificate_key /etc/nginx/2_www.byc.ink.key;
      # ssl_session_timeout 5m;
 
