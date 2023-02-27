@@ -2,6 +2,7 @@
 
 
 {% block header %}  {# 头 #}
+<script src="/static/jquery/lazyload.js"></script>  <!--图片懒加载-->
 <link rel="stylesheet" href="/static/css/movie.css">
 <title>电影</title>
 {% endblock header %}
@@ -46,7 +47,8 @@
          {% for movie in pager.object_list %}
         <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="thumbnail">
-                <img src="{{ movie.image }}" alt="封面">
+<!--                图片使用懒加载-->
+                <img class="lazyload" data-original="{{ movie.image }}" alt="封面">
                 <div class="caption">
                     <a href="{% url 'movie_app:movies' %}{{ movie.id }}/" target="_blank">
                         <h4 class="movie_title">{{ movie.title }}</h4>
@@ -118,3 +120,8 @@
 </nav>
 <!--分页结束-->
 {% endblock content %}
+
+<!--懒加载插件-->
+{% block script %}
+    $(".lazyload").lazyload();
+{% endblock script %}

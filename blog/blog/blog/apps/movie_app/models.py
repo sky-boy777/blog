@@ -6,6 +6,7 @@ from db.base_models import BaseModel
 class MovieBannerModel(BaseModel):
     """电影海报轮播图"""
     image = models.URLField(verbose_name='图片url')
+    # 排序号
 
     class Meta:
         db_table = 'movie_banner'

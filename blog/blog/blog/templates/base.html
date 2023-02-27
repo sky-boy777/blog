@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="shortcut icon" href="/static/images/favicon.ico" />
+    <!--    <script src="/static/jquery/jquery-1.12.4.js"></script>-->
+    <script src="https://labfile.oss.aliyuncs.com/courses/3774/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="/static/css/normalize.css">
     <link rel="stylesheet" href="/static/css/base.css">
@@ -95,12 +97,14 @@
      <!--底部开始-->
     <div class="bottom">
         <p class="h4">BYC个人网站</p>
-        <p>联系邮箱：1251779123@qq.com</p>
+        <p>
+            <a href="https://beian.miit.gov.cn/#/Integrated/index" target='_blank'>桂ICP备2022008354号-1</a>
+            &nbsp;&nbsp;联系邮箱：1251779123@qq.com
+        </p>
     </div>
     <div id="bottom"></div>
     <!--底部结束-->
 
-    <script src="/static/jquery/jquery-1.12.4.js"></script>
     <script>
         $('#nav-btn').click(function () {
             $('#nav-div').toggleClass('collapse');  // 点击出现下拉菜单

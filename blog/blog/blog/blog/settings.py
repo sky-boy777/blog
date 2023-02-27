@@ -93,8 +93,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blog',
-        'USER': 'root',
-        'PASSWORD': 'mysql',
+        'USER': 'byc',
+        'PASSWORD': '1qaz@WSX',
         'HOST': 'localhost',
         'PORT': 3306,
     }
@@ -187,7 +187,7 @@ CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.random_char_challenge'  # 随机字�
 
 # 分页配置
 NUM_PAGES = 20  # 分页默认条目数
-MOVIE_NUM_PAGES = 8  # 电影每页8条
+MOVIE_NUM_PAGES = 100  # 电影每页8条
 
 # 默认密码
 DEFAULT_PASSWORD = 'byc1234'
