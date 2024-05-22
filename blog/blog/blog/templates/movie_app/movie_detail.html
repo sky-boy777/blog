@@ -1,6 +1,7 @@
 {% extends 'base.html' %}      {# 加载父模板 #}
 
 {% block header %}  {# 头 #}
+<meta name="referrer" content="same-origin"> <!--同源带referrer头，不同源不带，针对图片防盗链-->
 <title>{{ movie.title }}</title>
 {% endblock header %}
 
